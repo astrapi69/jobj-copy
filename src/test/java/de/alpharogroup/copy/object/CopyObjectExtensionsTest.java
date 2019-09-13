@@ -50,7 +50,7 @@ public class CopyObjectExtensionsTest
 	 * @throws InvocationTargetException
 	 *             the invocation target exception
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testCopyNotEqualType() throws IllegalAccessException, InvocationTargetException
 	{
 		Object expected;
@@ -197,7 +197,7 @@ public class CopyObjectExtensionsTest
 	 *             <li>has no nullary constructor</li>
 	 *             </ul>
 	 */
-	@Test
+	@Test(enabled = false)
 	public void testCopyProperties()
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
