@@ -377,10 +377,10 @@ public final class CopyObjectExtensions
 	public static <T extends Serializable> T copySerializedObject(final @NonNull T orig)
 		throws IOException, ClassNotFoundException
 	{
-		try(ByteArrayInputStream bis = new ByteArrayInputStream(
-			toByteArray(orig));ObjectInputStream ois = new ObjectInputStream(bis)){
+		try (ByteArrayInputStream bis = new ByteArrayInputStream(toByteArray(orig));
+			ObjectInputStream ois = new ObjectInputStream(bis))
+		{
 			T object = (T)ois.readObject();
-			ois.close();
 			return object;
 		}
 	}
