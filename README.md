@@ -11,7 +11,7 @@
 
 </div>
 
-Utility library for simply compare java objects.
+Utility library for simply copy java objects.
 
 If you like this project put a ⭐ and donate.
 
