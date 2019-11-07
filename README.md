@@ -55,7 +55,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJ-COPY version -->
-		<jobj-copy.version>3.1</jobj-copy.version>
+		<jobj-copy.version>3.2</jobj-copy.version>
 			...
 	</properties>
 			...
@@ -69,6 +69,24 @@ Than you can add the dependency to your dependencies:
 			</dependency>
 			...
 		</dependencies>
+	
+			
+## gradle dependency
+
+You can first define the version in the ext section and add than the following gradle dependency to your project `build.gradle` if you want to import the core functionality of jobj-copy:
+
+```
+ext {
+			...
+    jobjCopyVersion = "3.2"
+			...
+}
+dependencies {
+			...
+compile "de.alpharogroup:jobj-copy:${jobjCopyVersion}"
+			...
+}
+```
 
 ## Semantic Versioning
 

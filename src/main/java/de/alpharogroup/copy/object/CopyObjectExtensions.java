@@ -377,19 +377,34 @@ public final class CopyObjectExtensions
 	public static <T extends Serializable> T copySerializedObject(final @NonNull T orig)
 		throws IOException, ClassNotFoundException
 	{
+		try (ByteArrayInputStream bis = new ByteArrayInputStream(toByteArray(orig));
+			ObjectInputStream ois = new ObjectInputStream(bis))
+		{
+			T object = (T)ois.readObject();
+			return object;
+		}
+	}
+
+	/**
+	 * Copies the given object to a byte array
+	 *
+	 * @param <T>
+	 *            the generic type of the given object
+	 * @param object
+	 *            The object to copy
+	 * @return the byte array
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public static <T extends Serializable> byte[] toByteArray(final @NonNull T object)
+		throws IOException
+	{
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream))
 		{
-			objectOutputStream.writeObject(orig);
+			objectOutputStream.writeObject(object);
 			objectOutputStream.flush();
-			objectOutputStream.close();
-			final ByteArrayInputStream bis = new ByteArrayInputStream(
-				byteArrayOutputStream.toByteArray());
-			final ObjectInputStream ois = new ObjectInputStream(bis);
-			T object = (T)ois.readObject();
-			byteArrayOutputStream.close();
-			ois.close();
-			return object;
+			return byteArrayOutputStream.toByteArray();
 		}
 	}
 
