@@ -7,6 +7,7 @@ Version 3.3-SNAPSHOT
 CHANGED:
 
 - migrated from maven to gradle build system
+- migrated to new package 'io.github.astrapi69'
 
 Version 3.2
 -------------

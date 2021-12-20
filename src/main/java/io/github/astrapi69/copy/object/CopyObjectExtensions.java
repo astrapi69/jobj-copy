@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2021 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -32,13 +32,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-import de.alpharogroup.lang.ClassType;
-import de.alpharogroup.lang.ObjectExtensions;
-import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+
+import org.apache.commons.beanutils.BeanUtils;
+
+import io.github.astrapi69.lang.ClassType;
+import io.github.astrapi69.lang.ObjectExtensions;
+import io.github.astrapi69.reflection.ReflectionExtensions;
 
 /**
  * The class {@link CopyObjectExtensions} provide methods for copy an original object to a given
@@ -78,8 +79,9 @@ public final class CopyObjectExtensions
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
-		if(String.class.equals(clazz)) {
-			return (T) String.valueOf(original);
+		if (String.class.equals(clazz))
+		{
+			return (T)String.valueOf(original);
 		}
 		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
 		return copyObject(original, destination, ignoreFieldNames);

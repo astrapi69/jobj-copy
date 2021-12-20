@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2021 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -29,12 +29,12 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.date.CreateDateExtensions;
-import de.alpharogroup.date.DateDecorator;
-import de.alpharogroup.date.SqlTimestampDecorator;
-import de.alpharogroup.test.objects.Employee;
-import de.alpharogroup.test.objects.Person;
-import de.alpharogroup.test.objects.enums.Gender;
+import io.github.astrapi69.date.CreateDateExtensions;
+import io.github.astrapi69.date.DateDecorator;
+import io.github.astrapi69.date.SqlTimestampDecorator;
+import io.github.astrapi69.test.objects.Employee;
+import io.github.astrapi69.test.objects.Person;
+import io.github.astrapi69.test.objects.enums.Gender;
 
 /**
  * The unit test class for the class {@link CopyObjectExtensions}.
@@ -131,7 +131,7 @@ public class CopyObjectExtensionsTest
 		Person expected;
 
 		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
-		actual = CopyObjectExtensions.copyObject(expected,"$jacocoData");
+		actual = CopyObjectExtensions.copyObject(expected, "$jacocoData");
 		assertEquals(expected, actual);
 
 		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)

@@ -195,9 +195,9 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
     implementation("commons-beanutils:commons-beanutils:$commonsBeanutilsVersion")
-    implementation("de.alpharogroup:jobj-core:$jobjCoreVersion")
-    testImplementation("de.alpharogroup:test-objects:$testObjectsVersion")
-    testImplementation("de.alpharogroup:vintage-time:$vintageTimeVersion")
+    implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
+    testImplementation("io.github.astrapi69:test-objects:$testObjectsVersion")
+    testImplementation("io.github.astrapi69:vintage-time:$vintageTimeVersion")
     testImplementation("org.meanbean:meanbean:$meanbeanVersion")
     testImplementation("org.testng:testng:$testngVersion")
 }
