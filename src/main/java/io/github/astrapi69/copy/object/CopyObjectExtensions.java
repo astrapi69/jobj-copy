@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2021 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.copy.object;
+package io.github.astrapi69.copy.object;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,13 +32,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-import org.apache.commons.beanutils.BeanUtils;
-
-import de.alpharogroup.lang.ClassType;
-import de.alpharogroup.lang.ObjectExtensions;
-import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+
+import org.apache.commons.beanutils.BeanUtils;
+
+import io.github.astrapi69.lang.ClassType;
+import io.github.astrapi69.lang.ObjectExtensions;
+import io.github.astrapi69.reflection.ReflectionExtensions;
 
 /**
  * The class {@link CopyObjectExtensions} provide methods for copy an original object to a given
@@ -55,6 +56,8 @@ public final class CopyObjectExtensions
 	 *            the generic type of the given object
 	 * @param original
 	 *            the original object
+	 * @param ignoreFieldNames
+	 *            optional field names to ignore
 	 * @return a copy of the given original object
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
@@ -72,12 +75,16 @@ public final class CopyObjectExtensions
 	 *             is thrown if the class cannot be located
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T copyObject(@NonNull T original)
+	public static <T> T copyObject(@NonNull T original, final String... ignoreFieldNames)
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
+		if (String.class.equals(clazz))
+		{
+			return (T)String.valueOf(original);
+		}
 		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
-		return copyObject(original, destination);
+		return copyObject(original, destination, ignoreFieldNames);
 	}
 
 	/**
@@ -172,6 +179,18 @@ public final class CopyObjectExtensions
 		ClassType classType = ObjectExtensions.getClassType(fieldType);
 		switch (classType)
 		{
+			case ANNOTATION :
+			case ANONYMOUS :
+			case COLLECTION :
+			case LOCAL :
+			case PRIMITIVE :
+			case MAP :
+			case MEMBER :
+			case SYNTHETIC :
+			case INTERFACE :
+			case DEFAULT :
+				field.set(destination, value);
+				break;
 			case ARRAY :
 				Class<?> arrayType = value.getClass().getComponentType();
 				Object dest = Array.newInstance(arrayType, Array.getLength(value));
@@ -185,20 +204,6 @@ public final class CopyObjectExtensions
 				Enum<?> enumValue = (Enum<?>)value;
 				String name = enumValue.name();
 				field.set(destination, Enum.valueOf(fieldType.asSubclass(Enum.class), name));
-				break;
-			case ANNOTATION :
-			case ANONYMOUS :
-			case COLLECTION :
-			case LOCAL :
-			case DEFAULT :
-			case MEMBER :
-			case SYNTHETIC :
-			case INTERFACE :
-			case PRIMITIVE :
-				field.set(destination, value);
-				break;
-			case MAP :
-				field.set(destination, value);
 				break;
 		}
 		return false;

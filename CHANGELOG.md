@@ -1,6 +1,14 @@
 ## Change log
 ----------------------
 
+Version 3.3
+-------------
+
+CHANGED:
+
+- migrated from maven to gradle build system
+- migrated to new package 'io.github.astrapi69'
+
 Version 3.2
 -------------
 
