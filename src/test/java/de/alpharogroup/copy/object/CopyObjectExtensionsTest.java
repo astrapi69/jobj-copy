@@ -69,7 +69,7 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, String...)}
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
@@ -94,19 +94,19 @@ public class CopyObjectExtensionsTest
 		Person expected;
 
 		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
-		actual = CopyObjectExtensions.copyObject(expected);
+		actual = CopyObjectExtensions.copyObject(expected, "$jacocoData");
 		assertEquals(expected, actual);
 
 		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
 			.about("Ha ha ha...").nickname("beast").build();
 
 		Employee original = Employee.builder().person(person).id("23").build();
-		Employee employee = CopyObjectExtensions.copyObject(original);
+		Employee employee = CopyObjectExtensions.copyObject(original, "$jacocoData");
 		assertEquals(original, employee);
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, String...)}
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
@@ -131,7 +131,7 @@ public class CopyObjectExtensionsTest
 		Person expected;
 
 		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
-		actual = CopyObjectExtensions.copyObject(expected);
+		actual = CopyObjectExtensions.copyObject(expected,"$jacocoData");
 		assertEquals(expected, actual);
 
 		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
@@ -139,11 +139,11 @@ public class CopyObjectExtensionsTest
 
 		Employee original = Employee.builder().person(person).id("23").build();
 		Employee destination = Employee.builder().build();
-		Employee employee = CopyObjectExtensions.copyObject(original, destination);
+		Employee employee = CopyObjectExtensions.copyObject(original, destination, "$jacocoData");
 		assertEquals(original, employee);
 		// new scenario with ignore the id...
 		destination = Employee.builder().build();
-		employee = CopyObjectExtensions.copyObject(original, destination, "id");
+		employee = CopyObjectExtensions.copyObject(original, destination, "id", "$jacocoData");
 		original.setId(null);
 		assertEquals(original, employee);
 	}
@@ -179,7 +179,7 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyPropertiesWithReflection(Object)}
+	 * Test method for {@link CopyObjectExtensions#copyPropertiesWithReflection(Object, String...)}
 	 *
 	 * @throws InstantiationException
 	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
@@ -190,7 +190,7 @@ public class CopyObjectExtensionsTest
 	 * @throws NoSuchFieldException
 	 *             is thrown if no such field exists
 	 */
-	@Test(enabled = true)
+	@Test
 	public void testCopyPropertiesWithReflection()
 		throws InstantiationException, IllegalAccessException, NoSuchFieldException
 	{
@@ -212,7 +212,7 @@ public class CopyObjectExtensionsTest
 	 * Test method for
 	 * {@link CopyObjectExtensions#copyPropertyWithReflection(Object, Object, String)}.
 	 */
-	@Test(enabled = true)
+	@Test
 	public void testCopyPropertyWithReflection() throws NoSuchFieldException, SecurityException,
 		IllegalArgumentException, IllegalAccessException
 	{
@@ -237,7 +237,7 @@ public class CopyObjectExtensionsTest
 	/**
 	 * Test method for {@link CopyObjectExtensions#copySerializedObject(java.io.Serializable)}.
 	 */
-	@Test(enabled = true)
+	@Test
 	public void testCopySerializedObject() throws ClassNotFoundException, IOException
 	{
 		Employee expected;
@@ -253,7 +253,7 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, String...)}
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
@@ -270,7 +270,7 @@ public class CopyObjectExtensionsTest
 	 *             <li>has no nullary constructor</li>
 	 *             </ul>
 	 */
-	@Test(enabled = false)
+	@Test
 	public void testCopyString()
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{

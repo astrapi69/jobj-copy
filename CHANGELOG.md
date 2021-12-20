@@ -4,6 +4,10 @@
 Version 3.3-SNAPSHOT
 -------------
 
+CHANGED:
+
+- migrated from maven to gradle build system
+
 Version 3.2
 -------------
 
