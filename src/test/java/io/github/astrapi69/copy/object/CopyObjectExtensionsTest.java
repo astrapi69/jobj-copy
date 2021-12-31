@@ -20,7 +20,9 @@
  */
 package io.github.astrapi69.copy.object;
 
+import static org.testng.AssertJUnit.assertArrayEquals;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNull;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -29,9 +31,6 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import io.github.astrapi69.date.CreateDateExtensions;
-import io.github.astrapi69.date.DateDecorator;
-import io.github.astrapi69.date.SqlTimestampDecorator;
 import io.github.astrapi69.test.objects.Employee;
 import io.github.astrapi69.test.objects.Person;
 import io.github.astrapi69.test.objects.enums.Gender;
@@ -43,29 +42,130 @@ public class CopyObjectExtensionsTest
 {
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
+	 * Test method for {@link CopyObjectExtensions#copyOfEnumValue(Object, Class)}
+	 */
+	@Test
+	public void testCopyOfEnumValue()
+	{
+		Object expected;
+		Object actual;
+		// new scenario ...
+		expected = Gender.FEMALE;
+		actual = CopyObjectExtensions.copyOfEnumValue(expected, Gender.class);
+		assertEquals(expected, actual);
+
+		expected = new Person();
+		actual = CopyObjectExtensions.copyOfEnumValue(expected, Person.class);
+		assertNull(actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyOfArray(Object)}
+	 */
+	@Test
+	public void testCopyOfArray()
+	{
+		Object expected;
+		Object actual;
+
+		expected = new Person();
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertNull(actual);
+		// new scenario ...
+		expected = new boolean[] { false, true };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((boolean[])expected, (boolean[])actual);
+		// new scenario ...
+		expected = new byte[] { 1, 2 };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((byte[])expected, (byte[])actual);
+		// new scenario ...
+		expected = new char[] { 1, 2 };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((char[])expected, (char[])actual);
+		// new scenario ...
+		expected = new short[] { 1, 2 };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((short[])expected, (short[])actual);
+		// new scenario ...
+		expected = new int[] { 1, 2 };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((int[])expected, (int[])actual);
+		// new scenario ...
+		expected = new long[] { 1, 2 };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((long[])expected, (long[])actual);
+		// new scenario ...
+		expected = new float[] { 1.0f, 2.0f };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((float[])expected, (float[])actual, 0);
+		// new scenario ...
+		expected = new double[] { 1.0d, 2.0d };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((double[])expected, (double[])actual, 0);
+
+		expected = new Double[] { 1.0d, 2.0d };
+		actual = CopyObjectExtensions.copyOfArray(expected);
+		assertArrayEquals((Double[])expected, (Double[])actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copy(Object, Object, String...)}
 	 *
 	 * @throws IllegalAccessException
 	 *             the illegal access exception
 	 * @throws InvocationTargetException
 	 *             the invocation target exception
 	 */
-	@Test(enabled = false)
-	public void testCopyNotEqualType() throws IllegalAccessException, InvocationTargetException
+	@Test
+	public void testCopyNotEqualType() throws IllegalAccessException, NoSuchFieldException
 	{
-		Object expected;
-		Object actual;
+		Person original;
+		Person destination;
+		Person actual;
+		Person expected;
+		// new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
 
-		final DateDecorator dateDecorator = DateDecorator.builder().date(CreateDateExtensions.now())
-			.build();
+		destination = Person.builder().build();
 
-		final SqlTimestampDecorator timestampDecorator = SqlTimestampDecorator.builder().build();
-
-		CopyObjectExtensions.copy(dateDecorator, timestampDecorator);
-		expected = dateDecorator.getDate().getTime();
-		actual = timestampDecorator.getDate().getTime();
+		CopyObjectExtensions.copy(original, destination);
+		expected = original;
+		actual = destination;
 		assertEquals(expected, actual);
+		// new scenario
+		destination = Person.builder().build();
 
+		CopyObjectExtensions.copy(original, destination, "gender");
+		expected = Person.builder().name("asterix").build();
+		actual = destination;
+		assertEquals(expected, actual);
+	}
+
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)}
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 */
+	@Test
+	public void testCopy()
+		throws IllegalAccessException, ClassNotFoundException, InstantiationException
+	{
+		Person original;
+		Person destination;
+		Person actual;
+		Person expected;
+
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+
+		destination = Person.builder().build();
+
+		CopyObjectExtensions.copyObject(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -149,42 +249,8 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyProperties(Object)}
-	 *
-	 * @throws IllegalAccessException
-	 *             if the caller does not have access to the property accessor method
-	 * @throws InvocationTargetException
-	 *             if the property accessor method throws an exception
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 */
-	@Test(enabled = false)
-	public void testCopyProperties()
-		throws IllegalAccessException, InvocationTargetException, InstantiationException
-	{
-		Person actual;
-		Person expected;
-
-		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
-		actual = CopyObjectExtensions.copyProperties(expected);
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Test method for {@link CopyObjectExtensions#copyPropertiesWithReflection(Object, String...)}
 	 *
-	 * @throws InstantiationException
-	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
-	 *             array class, a primitive type, or void; or if the class has no default
-	 *             constructor; or if the instantiation fails for some other reason.
 	 * @throws IllegalAccessException
 	 *             is thrown if the class or its default constructor is not accessible
 	 * @throws NoSuchFieldException
@@ -192,7 +258,7 @@ public class CopyObjectExtensionsTest
 	 */
 	@Test
 	public void testCopyPropertiesWithReflection()
-		throws InstantiationException, IllegalAccessException, NoSuchFieldException
+		throws IllegalAccessException, NoSuchFieldException
 	{
 		Employee expected;
 		Employee actual;
