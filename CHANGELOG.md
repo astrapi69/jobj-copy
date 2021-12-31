@@ -1,8 +1,17 @@
 ## Change log
 ----------------------
 
-Version 3.4-SNAPSHOT
+Version 3.4
 -------------
+
+ADDED:
+
+- new method for copy primitive and object arrays and enums
+
+CHANGED:
+
+- update of gradle to new version 7.3.3
+- removed delegate method copyProperties
 
 Version 3.3
 -------------

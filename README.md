@@ -1,6 +1,6 @@
 # Overview
 
-<div align="center">
+<div style="text-align: center">
 
 [![Build Status](https://travis-ci.org/astrapi69/jobj-copy.svg?branch=develop)](https://travis-ci.org/astrapi69/jobj-copy) 
 [![Coverage Status](https://coveralls.io/repos/github/astrapi69/jobj-copy/badge.svg?branch=develop)](https://coveralls.io/github/astrapi69/jobj-copy?branch=develop) 
@@ -23,13 +23,13 @@ your project `build.gradle` if you want to import the core functionality of jobj
 define version in file gradle.properties
 
 ```
-jobjCopyVersion=3.3
+jobjCopyVersion=3.4
 ```
 
 or in build.gradle ext area
 
 ```
-    jobjCopyVersion = "3.3"
+    jobjCopyVersion = "3.4"
 ```
 
 then add the dependency to the dependencies area
@@ -50,7 +50,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJ-COPY version -->
-		<jobj-copy.version>3.3</jobj-copy.version>
+		<jobj-copy.version>3.4</jobj-copy.version>
 			...
 	</properties>
 			...
