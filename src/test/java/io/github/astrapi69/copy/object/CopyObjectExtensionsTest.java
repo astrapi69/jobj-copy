@@ -31,6 +31,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import io.github.astrapi69.random.object.RandomObjectFactory;
 import io.github.astrapi69.test.objects.Employee;
 import io.github.astrapi69.test.objects.Person;
 import io.github.astrapi69.test.objects.enums.Gender;
@@ -113,12 +114,17 @@ public class CopyObjectExtensionsTest
 	 * Test method for {@link CopyObjectExtensions#copy(Object, Object, String...)}
 	 *
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
+	 *             is thrown if the class or its default constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists
 	 */
 	@Test
-	public void testCopyNotEqualType() throws IllegalAccessException, NoSuchFieldException
+	public void testCopyNotEqualType()
+		throws IllegalAccessException, NoSuchFieldException, InstantiationException
 	{
 		Person original;
 		Person destination;
@@ -140,6 +146,14 @@ public class CopyObjectExtensionsTest
 		expected = Person.builder().name("asterix").build();
 		actual = destination;
 		assertEquals(expected, actual);
+		// new scenario
+		original = RandomObjectFactory.newRandomObject(Person.class, "$jacocoData");
+
+		CopyObjectExtensions.copy(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
+
 	}
 
 

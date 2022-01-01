@@ -35,7 +35,7 @@ or in build.gradle ext area
 then add the dependency to the dependencies area
 
 ```
-compile "io.github.astrapi69:jobj-copy:${jobjCopyVersion}"
+    implementation("io.github.astrapi69:jobj-copy:$jobjCopyVersion")
 ```
 
 ## Maven dependency
