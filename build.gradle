@@ -63,7 +63,7 @@ javadoc {
 }
 
 test {
-    useTestNG()
+    useJUnitPlatform()
 }
 
 jacocoTestReport {
@@ -199,6 +199,6 @@ dependencies {
     testImplementation("io.github.astrapi69:randomizer-core:$randomizerVersion")
     testImplementation("io.github.astrapi69:test-objects:$testObjectsVersion")
     testImplementation("io.github.astrapi69:vintage-time:$vintageTimeVersion")
-    testImplementation("org.meanbean:meanbean:$meanbeanVersion")
-    testImplementation("org.testng:testng:$testngVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }

@@ -62,22 +62,10 @@ public final class CopyObjectExtensions
 	 * @return a copy of the given original object
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T copyObject(@NonNull T original, final String... ignoreFieldNames)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+		throws IllegalAccessException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
 		if (String.class.equals(clazz))
@@ -105,22 +93,10 @@ public final class CopyObjectExtensions
 	 * @return a copy of the given original object
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(final @NonNull ORIGINAL original,
 		final @NonNull DESTINATION destination, final String... ignoreFieldNames)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+		throws IllegalAccessException
 	{
 		Field[] allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(original.getClass(),
 			ignoreFieldNames);
@@ -152,23 +128,11 @@ public final class CopyObjectExtensions
 	 * @return true if the field is null or final otherwise false
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	@SuppressWarnings("unchecked")
 	public static <ORIGINAL, DESTINATION> boolean copyField(final @NonNull Field field,
 		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+		throws IllegalAccessException
 	{
 		field.setAccessible(true);
 		Object value = field.get(original);

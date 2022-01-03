@@ -4,6 +4,15 @@
 Version 3.5-SNAPSHOT
 -------------
 
+ADDED:
+
+- added new test-dependency junit-jupiter (junit 5) in version 5.8.2
+
+CHANGED:
+
+- remove of test-dependency testng
+- update of dependency jobj-core in new version 5.2
+
 Version 3.4
 -------------
 

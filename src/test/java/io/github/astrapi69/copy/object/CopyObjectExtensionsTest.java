@@ -20,16 +20,17 @@
  */
 package io.github.astrapi69.copy.object;
 
-import static org.testng.AssertJUnit.assertArrayEquals;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
-import org.meanbean.test.BeanTestException;
-import org.meanbean.test.BeanTester;
-import org.testng.annotations.Test;
+import io.github.astrapi69.date.CreateDateExtensions;
+import io.github.astrapi69.test.objects.Member;
+import io.github.astrapi69.test.objects.PremiumMember;
 
 import io.github.astrapi69.random.object.RandomObjectFactory;
 import io.github.astrapi69.test.objects.Employee;
@@ -123,7 +124,7 @@ public class CopyObjectExtensionsTest
 	 *             is thrown if no such field exists
 	 */
 	@Test
-	public void testCopyNotEqualType()
+	public void testCopyWithIgnoreFieldnames()
 		throws IllegalAccessException, NoSuchFieldException, InstantiationException
 	{
 		Person original;
@@ -161,20 +162,92 @@ public class CopyObjectExtensionsTest
 	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)}
 	 *
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             if the caller does not have access to the property accessor method
 	 */
 	@Test
 	public void testCopy()
-		throws IllegalAccessException, ClassNotFoundException, InstantiationException
+		throws IllegalAccessException
 	{
 		Person original;
 		Person destination;
 		Person actual;
 		Person expected;
 
-		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		original = Person.builder()
+			.about("about")
+			.gender(Gender.MALE)
+			.married(false)
+			.name("asterix")
+			.nickname("wan").build();
 
 		destination = Person.builder().build();
+
+		CopyObjectExtensions.copyObject(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)} with
+	 * Member that is a descendant of Person.
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 */
+	@Test
+	public void testCopyMember()
+		throws IllegalAccessException
+	{
+		Member original;
+		Member destination;
+		Member actual;
+		Member expected;
+
+		original = Member.buildMember()
+			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24))
+			.about("about")
+			.gender(Gender.MALE)
+			.married(true)
+			.name("Wanne")
+			.nickname("wan").build();
+
+		destination = Member.buildMember().build();
+
+		CopyObjectExtensions.copyObject(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)} with
+	 * PremiumMember that is a descendant of Member that is a descendant of Person.
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 */
+	@Test
+	public void testCopyPremiumMember()
+		throws IllegalAccessException
+	{
+		PremiumMember original;
+		PremiumMember destination;
+		PremiumMember actual;
+		PremiumMember expected;
+
+		original = PremiumMember.buildPremiumMember()
+			.credits("10")
+			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24))
+			.about("about")
+			.gender(Gender.MALE)
+			.married(true)
+			.name("Wanne")
+			.nickname("wan").build();
+
+		destination = PremiumMember.buildPremiumMember().build();
 
 		CopyObjectExtensions.copyObject(original, destination);
 		expected = original;
@@ -361,17 +434,6 @@ public class CopyObjectExtensionsTest
 		actual = CopyObjectExtensions.copyObject(expected);
 		assertEquals(expected, actual);
 
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions} with {@link BeanTester}
-	 */
-	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
-			UnsupportedOperationException.class })
-	public void testWithBeanTester()
-	{
-		BeanTester beanTester = new BeanTester();
-		beanTester.testBean(CopyObjectExtensions.class);
 	}
 
 }
