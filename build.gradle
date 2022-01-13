@@ -62,19 +62,6 @@ javadoc {
     }
 }
 
-test {
-    useTestNG()
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-
-check.dependsOn jacocoTestReport
-
 def releaseVersion = !version.endsWith("SNAPSHOT")
 
 publishing {
@@ -189,6 +176,19 @@ license {
 gradle.startParameter.excludedTaskNames += "licenseMain"
 gradle.startParameter.excludedTaskNames += "licenseTest"
 
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+check.dependsOn jacocoTestReport
+
 dependencies {
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
@@ -196,8 +196,9 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
     implementation("commons-beanutils:commons-beanutils:$commonsBeanutilsVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
+    testImplementation("io.github.astrapi69:randomizer:$randomizerVersion")
     testImplementation("io.github.astrapi69:test-objects:$testObjectsVersion")
     testImplementation("io.github.astrapi69:vintage-time:$vintageTimeVersion")
-    testImplementation("org.meanbean:meanbean:$meanbeanVersion")
-    testImplementation("org.testng:testng:$testngVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }

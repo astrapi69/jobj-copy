@@ -20,17 +20,19 @@
  */
 package io.github.astrapi69.copy.object;
 
-import static org.testng.AssertJUnit.assertArrayEquals;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
-import org.meanbean.test.BeanTestException;
-import org.meanbean.test.BeanTester;
-import org.testng.annotations.Test;
+import io.github.astrapi69.date.CreateDateExtensions;
+import io.github.astrapi69.test.objects.Member;
+import io.github.astrapi69.test.objects.PremiumMember;
 
+import io.github.astrapi69.random.object.RandomObjectFactory;
 import io.github.astrapi69.test.objects.Employee;
 import io.github.astrapi69.test.objects.Person;
 import io.github.astrapi69.test.objects.enums.Gender;
@@ -42,83 +44,20 @@ public class CopyObjectExtensionsTest
 {
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyOfEnumValue(Object, Class)}
-	 */
-	@Test
-	public void testCopyOfEnumValue()
-	{
-		Object expected;
-		Object actual;
-		// new scenario ...
-		expected = Gender.FEMALE;
-		actual = CopyObjectExtensions.copyOfEnumValue(expected, Gender.class);
-		assertEquals(expected, actual);
-
-		expected = new Person();
-		actual = CopyObjectExtensions.copyOfEnumValue(expected, Person.class);
-		assertNull(actual);
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#copyOfArray(Object)}
-	 */
-	@Test
-	public void testCopyOfArray()
-	{
-		Object expected;
-		Object actual;
-
-		expected = new Person();
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertNull(actual);
-		// new scenario ...
-		expected = new boolean[] { false, true };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((boolean[])expected, (boolean[])actual);
-		// new scenario ...
-		expected = new byte[] { 1, 2 };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((byte[])expected, (byte[])actual);
-		// new scenario ...
-		expected = new char[] { 1, 2 };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((char[])expected, (char[])actual);
-		// new scenario ...
-		expected = new short[] { 1, 2 };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((short[])expected, (short[])actual);
-		// new scenario ...
-		expected = new int[] { 1, 2 };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((int[])expected, (int[])actual);
-		// new scenario ...
-		expected = new long[] { 1, 2 };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((long[])expected, (long[])actual);
-		// new scenario ...
-		expected = new float[] { 1.0f, 2.0f };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((float[])expected, (float[])actual, 0);
-		// new scenario ...
-		expected = new double[] { 1.0d, 2.0d };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((double[])expected, (double[])actual, 0);
-
-		expected = new Double[] { 1.0d, 2.0d };
-		actual = CopyObjectExtensions.copyOfArray(expected);
-		assertArrayEquals((Double[])expected, (Double[])actual);
-	}
-
-	/**
 	 * Test method for {@link CopyObjectExtensions#copy(Object, Object, String...)}
 	 *
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
+	 *             is thrown if the class or its default constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists
 	 */
 	@Test
-	public void testCopyNotEqualType() throws IllegalAccessException, NoSuchFieldException
+	public void testCopyWithIgnoreFieldnames()
+		throws IllegalAccessException, NoSuchFieldException, InstantiationException
 	{
 		Person original;
 		Person destination;
@@ -140,6 +79,14 @@ public class CopyObjectExtensionsTest
 		expected = Person.builder().name("asterix").build();
 		actual = destination;
 		assertEquals(expected, actual);
+		// new scenario
+		original = RandomObjectFactory.newRandomObject(Person.class, "$jacocoData");
+
+		CopyObjectExtensions.copy(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
+
 	}
 
 
@@ -147,20 +94,92 @@ public class CopyObjectExtensionsTest
 	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)}
 	 *
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             if the caller does not have access to the property accessor method
 	 */
 	@Test
 	public void testCopy()
-		throws IllegalAccessException, ClassNotFoundException, InstantiationException
+		throws IllegalAccessException
 	{
 		Person original;
 		Person destination;
 		Person actual;
 		Person expected;
 
-		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		original = Person.builder()
+			.about("about")
+			.gender(Gender.MALE)
+			.married(false)
+			.name("asterix")
+			.nickname("wan").build();
 
 		destination = Person.builder().build();
+
+		CopyObjectExtensions.copyObject(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)} with
+	 * Member that is a descendant of Person.
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 */
+	@Test
+	public void testCopyMember()
+		throws IllegalAccessException
+	{
+		Member original;
+		Member destination;
+		Member actual;
+		Member expected;
+
+		original = Member.buildMember()
+			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24))
+			.about("about")
+			.gender(Gender.MALE)
+			.married(true)
+			.name("Wanne")
+			.nickname("wan").build();
+
+		destination = Member.buildMember().build();
+
+		CopyObjectExtensions.copyObject(original, destination);
+		expected = original;
+		actual = destination;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)} with
+	 * PremiumMember that is a descendant of Member that is a descendant of Person.
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 */
+	@Test
+	public void testCopyPremiumMember()
+		throws IllegalAccessException
+	{
+		PremiumMember original;
+		PremiumMember destination;
+		PremiumMember actual;
+		PremiumMember expected;
+
+		original = PremiumMember.buildPremiumMember()
+			.credits("10")
+			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24))
+			.about("about")
+			.gender(Gender.MALE)
+			.married(true)
+			.name("Wanne")
+			.nickname("wan").build();
+
+		destination = PremiumMember.buildPremiumMember().build();
 
 		CopyObjectExtensions.copyObject(original, destination);
 		expected = original;
@@ -347,17 +366,6 @@ public class CopyObjectExtensionsTest
 		actual = CopyObjectExtensions.copyObject(expected);
 		assertEquals(expected, actual);
 
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions} with {@link BeanTester}
-	 */
-	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
-			UnsupportedOperationException.class })
-	public void testWithBeanTester()
-	{
-		BeanTester beanTester = new BeanTester();
-		beanTester.testBean(CopyObjectExtensions.class);
 	}
 
 }

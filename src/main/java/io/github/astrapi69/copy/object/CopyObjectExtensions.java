@@ -62,29 +62,17 @@ public final class CopyObjectExtensions
 	 * @return a copy of the given original object
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T copyObject(@NonNull T original, final String... ignoreFieldNames)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+		throws IllegalAccessException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
 		if (String.class.equals(clazz))
 		{
 			return (T)String.valueOf(original);
 		}
-		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
+		T destination = ReflectionExtensions.newInstance(clazz);
 		return copyObject(original, destination, ignoreFieldNames);
 	}
 
@@ -105,22 +93,10 @@ public final class CopyObjectExtensions
 	 * @return a copy of the given original object
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(final @NonNull ORIGINAL original,
 		final @NonNull DESTINATION destination, final String... ignoreFieldNames)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+		throws IllegalAccessException
 	{
 		Field[] allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(original.getClass(),
 			ignoreFieldNames);
@@ -147,141 +123,25 @@ public final class CopyObjectExtensions
 	 *            the field
 	 * @param original
 	 *            the original object.
-	 * @param destination
+	 * @param target
 	 *            the destination object.
 	 * @return true if the field is null or final otherwise false
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	@SuppressWarnings("unchecked")
 	public static <ORIGINAL, DESTINATION> boolean copyField(final @NonNull Field field,
-		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+		final @NonNull ORIGINAL original, final @NonNull DESTINATION target)
+		throws IllegalAccessException
 	{
 		field.setAccessible(true);
-		Object value = field.get(original);
-		if (value == null || Modifier.isFinal(field.getModifiers()))
+		Object newValue = field.get(original);
+		if (newValue == null || Modifier.isFinal(field.getModifiers()))
 		{
 			return true;
 		}
-		Class<?> fieldType = field.getType();
-		ClassType classType = ObjectExtensions.getClassType(fieldType);
-		switch (classType)
-		{
-			case ANNOTATION :
-			case ANONYMOUS :
-			case COLLECTION :
-			case LOCAL :
-			case PRIMITIVE :
-			case MAP :
-			case MEMBER :
-			case SYNTHETIC :
-			case INTERFACE :
-			case DEFAULT :
-				field.set(destination, value);
-				break;
-			case ARRAY :
-				field.set(destination, copyOfArray(value));
-				break;
-			case ENUM :
-				field.set(destination, copyOfEnumValue(value, fieldType));
-				break;
-		}
+		ReflectionExtensions.setFieldValue(target, field, newValue);
 		return false;
-	}
-
-	/**
-	 * Copy the given enum object over reflection and return a copy of it
-	 *
-	 * @param value
-	 *            the enum object
-	 * @param fieldType
-	 *            the type of the given field value
-	 * @return the new enum object that is a copy of the given enum object
-	 */
-	public static Object copyOfEnumValue(Object value, Class<?> fieldType)
-	{
-		ClassType classType = ObjectExtensions.getClassType(fieldType);
-		if (classType.equals(ClassType.ENUM))
-		{
-			Enum<?> enumValue = (Enum<?>)value;
-			String name = enumValue.name();
-			return Enum.valueOf(fieldType.asSubclass(Enum.class), name);
-		}
-		return null;
-	}
-
-	/**
-	 * Copy the given array object over reflection and return a copy of it
-	 * 
-	 * @param value
-	 *            the array object
-	 * @return the new array object that is a copy of the given array object
-	 */
-	public static Object copyOfArray(Object value)
-	{
-		if (!value.getClass().isArray())
-		{
-			return null;
-		}
-		Object destinationArray = null;
-		Class<?> arrayType = value.getClass().getComponentType();
-		if (arrayType.isPrimitive())
-		{
-			if ("boolean".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((boolean[])value, Array.getLength(value));
-			}
-			if ("byte".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((byte[])value, Array.getLength(value));
-			}
-			if ("char".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((char[])value, Array.getLength(value));
-			}
-			if ("short".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((short[])value, Array.getLength(value));
-			}
-			if ("int".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((int[])value, Array.getLength(value));
-			}
-			if ("long".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((long[])value, Array.getLength(value));
-			}
-			if ("float".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((float[])value, Array.getLength(value));
-			}
-			if ("double".equals(arrayType.getName()))
-			{
-				destinationArray = Arrays.copyOf((double[])value, Array.getLength(value));
-			}
-		}
-		else
-		{
-			destinationArray = Array.newInstance(arrayType, Array.getLength(value));
-			for (int i = 0; i < Array.getLength(value); i++)
-			{
-				Array.set(destinationArray, i, Array.get(value, i));
-			}
-		}
-		return destinationArray;
 	}
 
 	/**
