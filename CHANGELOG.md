@@ -1,7 +1,7 @@
 ## Change log
 ----------------------
 
-Version 3.5-SNAPSHOT
+Version 3.5
 -------------
 
 ADDED:
@@ -11,6 +11,7 @@ ADDED:
 CHANGED:
 
 - remove of test-dependency testng
+- update dependency of com.github.ben-manes.versions.gradle.plugin to new version 0.41.0
 - update of dependency jobj-core in new version 5.2
 
 Version 3.4
