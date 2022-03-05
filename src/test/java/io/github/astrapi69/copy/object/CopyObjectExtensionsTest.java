@@ -55,10 +55,9 @@ public class CopyObjectExtensionsTest
 	 *             is thrown if the underlying method throws an exception
 	 */
 	@Test
-	public void testCopyMapToObject() throws IntrospectionException, InvocationTargetException,
-		IllegalAccessException, NoSuchFieldException
+	public void testCopyMapToObject()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
 	{
-
 		Person original;
 		Person copy;
 		Map<String, Object> actual;
@@ -261,22 +260,9 @@ public class CopyObjectExtensionsTest
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
 	 */
 	@Test
-	public void testCopyObject()
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	public void testCopyObject() throws IllegalAccessException
 	{
 		Person actual;
 		Person expected;
@@ -298,22 +284,9 @@ public class CopyObjectExtensionsTest
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
 	 */
 	@Test
-	public void testCopyObjectIgnoreFields()
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	public void testCopyObjectIgnoreFields() throws IllegalAccessException
 	{
 		Person actual;
 		Person expected;
@@ -411,22 +384,9 @@ public class CopyObjectExtensionsTest
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
 	 */
 	@Test
-	public void testCopyString()
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	public void testCopyString() throws IllegalAccessException
 	{
 		String actual;
 		String expected;
