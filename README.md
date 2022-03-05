@@ -2,18 +2,26 @@
 
 <div style="text-align: center">
 
-[![Build Status](https://travis-ci.org/astrapi69/jobj-copy.svg?branch=develop)](https://travis-ci.org/astrapi69/jobj-copy) 
-[![Coverage Status](https://coveralls.io/repos/github/astrapi69/jobj-copy/badge.svg?branch=develop)](https://coveralls.io/github/astrapi69/jobj-copy?branch=develop) 
-[![Open Issues](https://img.shields.io/github/issues/astrapi69/jobj-copy.svg?style=flat)](https://github.com/astrapi69/jobj-copy/issues) 
+[![Java CI with Gradle](https://github.com/astrapi69/jobj-copy/actions/workflows/gradle.yml/badge.svg)](https://github.com/astrapi69/jobj-copy/actions/workflows/gradle.yml)
+[![Coverage Status](https://codecov.io/gh/astrapi69/jobj-copy/branch/develop/graph/badge.svg)](https://codecov.io/gh/astrapi69/jobj-copy)
+[![Open Issues](https://img.shields.io/github/issues/astrapi69/jobj-copy.svg?style=flat)](https://github.com/astrapi69/jobj-copy/issues)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.astrapi69/jobj-copy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.astrapi69/jobj-copy)
 [![Javadocs](http://www.javadoc.io/badge/io.github.astrapi69/jobj-copy.svg)](http://www.javadoc.io/doc/io.github.astrapi69/jobj-copy)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
+[![Hits Of Code](https://hitsofcode.com/github/astrapi69/jobj-copy?branch=develop)](https://hitsofcode.com/github/astrapi69/jobj-copy/view?branch=develop)
+[![Lines Of Code](https://tokei.rs/b1/github/astrapi69/jobj-copy)](https://github.com/astrapi69/jobj-copy)
 
 </div>
 
 Utility library for simply copy java objects.
 
-If you like this project put a ⭐ and donate.
+
+> Please support this project by simply putting a Github <!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/astrapi69/jobj-copy" data-icon="octicon-star" aria-label="Star astrapi69/jobj-copy on GitHub">Star ⭐</a>
+>
+> Share this library with friends on Twitter and everywhere else you can
+>
+> If you love this project [![donation](https://img.shields.io/badge/donate-❤-ff2244.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GVBTWLRAZ7HB8)
 
 ## gradle dependency
 
@@ -47,25 +55,23 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 Than you can add the dependency to your dependencies:
 
-	<properties>
-			...
-		<!-- JOBJ-COPY version -->
-		<jobj-copy.version>3.5</jobj-copy.version>
-			...
-	</properties>
-			...
-		<dependencies>
-			...
-			<!-- JOBJ-COPY DEPENDENCY -->
-			<dependency>
-				<groupId>io.github.astrapi69</groupId>
-				<artifactId>jobj-copy</artifactId>
-				<version>${jobj-copy.version}</version>
-			</dependency>
-			...
-		</dependencies>
-
-
+    <properties>
+            ...
+        <!-- JOBJ-COPY version -->
+        <jobj-copy.version>3.5</jobj-copy.version>
+            ...
+    </properties>
+            ...
+        <dependencies>
+            ...
+            <!-- JOBJ-COPY DEPENDENCY -->
+            <dependency>
+                <groupId>io.github.astrapi69</groupId>
+                <artifactId>jobj-copy</artifactId>
+                <version>${jobj-copy.version}</version>
+            </dependency>
+            ...
+        </dependencies>
 
 # Donations
 
@@ -135,7 +141,6 @@ No animals were harmed in the making of this library.
 
 The source code comes under the liberal MIT License, making jobj-copy great for all types of applications.
 
-
 ## Semantic Versioning
 
 The versions of jobj-copy are maintained with the Simplified Semantic Versioning guidelines.
@@ -163,22 +168,10 @@ Do not hesitate to contact the jobj-copy developers with your questions, concern
 
 ## Credits
 
-|**Travis CI**|
-|     :---:      |
-|[![Travis CI](https://travis-ci.com/images/logos/TravisCI-Full-Color.png)](https://coveralls.io/github/astrapi69/jobj-copy?branch=master)|
-|Special thanks to [Travis CI](https://travis-ci.org) for providing a free continuous integration service for open source projects|
-|     <img width=1000/>     |
-
 |**Nexus Sonatype repositories**|
 |     :---:      |
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.astrapi69/jobj-copy.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~io.github.astrapi69~jobj-copy~~~)|
 |Special thanks to [sonatype repository](https://www.sonatype.com) for providing a free maven repository service for open source projects|
-|     <img width=1000/>     |
-
-|**coveralls.io**|
-|     :---:      |
-|[![Coverage Status](https://coveralls.io/repos/github/astrapi69/jobj-copy/badge.svg?branch=develop)](https://coveralls.io/github/astrapi69/jobj-copy?branch=master)|
-|Special thanks to [coveralls.io](https://coveralls.io) for providing a free code coverage for open source projects|
 |     <img width=1000/>     |
 
 |**javadoc.io**|
