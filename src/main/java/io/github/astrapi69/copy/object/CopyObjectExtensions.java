@@ -20,6 +20,9 @@
  */
 package io.github.astrapi69.copy.object;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,19 +30,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.github.astrapi69.check.Check;
-import io.github.astrapi69.lang.ClassType;
-import io.github.astrapi69.lang.ObjectExtensions;
 import io.github.astrapi69.reflection.ReflectionExtensions;
 
 /**
@@ -49,6 +55,7 @@ import io.github.astrapi69.reflection.ReflectionExtensions;
 @UtilityClass
 public final class CopyObjectExtensions
 {
+
 
 	/**
 	 * Copy the given original object.
@@ -244,6 +251,60 @@ public final class CopyObjectExtensions
 			}
 		}
 		return target;
+	}
+
+	/**
+	 * Copy the given source object to the given target object.
+	 *
+	 * @param <T>
+	 *            the generic type of the source object
+	 * @param source
+	 *            the source object
+	 * @return the generated map from the given source object
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	public static <T> Map<String, Object> copyToMap(T source, final String... ignoreFieldNames)
+		throws IntrospectionException, IllegalAccessException, InvocationTargetException
+	{
+		Check.get().notNull(source, "source");
+		Map<String, Object> stringObjectMap = new HashMap<>();
+		BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
+		for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors())
+		{
+			String name = propertyDescriptor.getName();
+			if (!Arrays.asList(ignoreFieldNames).contains(name))
+			{
+				Method reader = propertyDescriptor.getReadMethod();
+				if (reader != null)
+				{
+					Object value = reader.invoke(source);
+					stringObjectMap.put(name, value);
+				}
+			}
+		}
+		return stringObjectMap;
+	}
+
+	/**
+	 * Copies all fields from the given map to a new object from the given class.
+	 *
+	 * @param <T>
+	 *            the generic type of the returned object
+	 * @param map
+	 *            the map with the fields
+	 * @param cls
+	 *            the class object
+	 * @return a new object from the given class that is filled from the given map
+	 */
+	public static <T> T copyMapToObject(@NonNull Map<String, Object> map, @NonNull Class<T> cls)
+	{
+		final ObjectMapper mapper = new ObjectMapper();
+		return mapper.convertValue(map, cls);
 	}
 
 	/**

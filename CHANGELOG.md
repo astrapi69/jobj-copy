@@ -4,14 +4,26 @@
 Version 3.6-SNAPSHOT
 -------------
 
+ADDED:
 
+- new method for copy an object to a map
+- new method for copy a map to an object that was previously copied in the map
+- new dependency jackson-databind in version 2.13.1
+
+CHANGED:
+
+- update of gradle to new version 7.4
+- update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 6.4.1
+- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new version 0.42.0
+- update of dependency jobj-core in new version 5.3
+- update of test dependency test-objects in new major version 6
 
 Version 3.5
 -------------
 
 ADDED:
 
-- added new test-dependency junit-jupiter (junit 5) in version 5.8.2
+- new test-dependency junit-jupiter (junit 5) in version 5.8.2
 
 CHANGED:
 
@@ -43,12 +55,10 @@ Version 3.2
 -------------
 
 ADDED:
- 
+
 - this changelog file
 - created PULL_REQUEST_TEMPLATE.md file
 - created CODE_OF_CONDUCT.md file
 - created CONTRIBUTING.md file
 - provide package.html for the javadoc of packages
 - moved classes from obsolet jobject-copy project
-
-

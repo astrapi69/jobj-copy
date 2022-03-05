@@ -2,9 +2,9 @@
 
 <div style="text-align: center">
 
-[![Build Status](https://travis-ci.org/astrapi69/jobj-copy.svg?branch=develop)](https://travis-ci.org/astrapi69/jobj-copy) 
-[![Coverage Status](https://coveralls.io/repos/github/astrapi69/jobj-copy/badge.svg?branch=develop)](https://coveralls.io/github/astrapi69/jobj-copy?branch=develop) 
-[![Open Issues](https://img.shields.io/github/issues/astrapi69/jobj-copy.svg?style=flat)](https://github.com/astrapi69/jobj-copy/issues) 
+[![Java CI with Gradle](https://github.com/astrapi69/jobj-copy/actions/workflows/gradle.yml/badge.svg)](https://github.com/astrapi69/jobj-copy/actions/workflows/gradle.yml)
+[![Coverage Status](https://coveralls.io/repos/github/astrapi69/jobj-copy/badge.svg?branch=develop)](https://coveralls.io/github/astrapi69/jobj-copy?branch=develop)
+[![Open Issues](https://img.shields.io/github/issues/astrapi69/jobj-copy.svg?style=flat)](https://github.com/astrapi69/jobj-copy/issues)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.astrapi69/jobj-copy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.astrapi69/jobj-copy)
 [![Javadocs](http://www.javadoc.io/badge/io.github.astrapi69/jobj-copy.svg)](http://www.javadoc.io/doc/io.github.astrapi69/jobj-copy)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
@@ -47,23 +47,23 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 Than you can add the dependency to your dependencies:
 
-	<properties>
-			...
-		<!-- JOBJ-COPY version -->
-		<jobj-copy.version>3.5</jobj-copy.version>
-			...
-	</properties>
-			...
-		<dependencies>
-			...
-			<!-- JOBJ-COPY DEPENDENCY -->
-			<dependency>
-				<groupId>io.github.astrapi69</groupId>
-				<artifactId>jobj-copy</artifactId>
-				<version>${jobj-copy.version}</version>
-			</dependency>
-			...
-		</dependencies>
+    <properties>
+            ...
+        <!-- JOBJ-COPY version -->
+        <jobj-copy.version>3.5</jobj-copy.version>
+            ...
+    </properties>
+            ...
+        <dependencies>
+            ...
+            <!-- JOBJ-COPY DEPENDENCY -->
+            <dependency>
+                <groupId>io.github.astrapi69</groupId>
+                <artifactId>jobj-copy</artifactId>
+                <version>${jobj-copy.version}</version>
+            </dependency>
+            ...
+        </dependencies>
 
 
 

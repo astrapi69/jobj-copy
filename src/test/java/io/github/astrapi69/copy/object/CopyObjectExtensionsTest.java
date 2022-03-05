@@ -21,27 +21,113 @@
 package io.github.astrapi69.copy.object;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.beans.IntrospectionException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import io.github.astrapi69.date.CreateDateExtensions;
-import io.github.astrapi69.test.objects.Member;
-import io.github.astrapi69.test.objects.PremiumMember;
-
 import io.github.astrapi69.random.object.RandomObjectFactory;
-import io.github.astrapi69.test.objects.Employee;
-import io.github.astrapi69.test.objects.Person;
-import io.github.astrapi69.test.objects.enums.Gender;
+import io.github.astrapi69.test.object.Employee;
+import io.github.astrapi69.test.object.Member;
+import io.github.astrapi69.test.object.Person;
+import io.github.astrapi69.test.object.PremiumMember;
+import io.github.astrapi69.test.object.enumtype.Gender;
 
 /**
  * The unit test class for the class {@link CopyObjectExtensions}.
  */
 public class CopyObjectExtensionsTest
 {
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyMapToObject(Map, Class)}
+	 * 
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	@Test
+	public void testCopyMapToObject() throws IntrospectionException, InvocationTargetException,
+		IllegalAccessException, NoSuchFieldException
+	{
+
+		Person original;
+		Person copy;
+		Map<String, Object> actual;
+		Map<String, Object> expected;
+
+		// prepare new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions.copyToMap(original, "class");
+		expected = new HashMap<>();
+		expected.put("gender", Gender.MALE);
+		expected.put("about", "");
+		expected.put("name", "asterix");
+		expected.put("nickname", "");
+		expected.put("married", false);
+		assertEquals(expected, actual);
+		// test
+		copy = CopyObjectExtensions.copyMapToObject(actual, Person.class);
+		assertEquals(original, copy);
+
+		// prepare new scenario
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("Ha ha ha...").nickname("beast").build();
+		Employee employeeAnna = Employee.builder().person(person).id("23").build();
+
+		actual = CopyObjectExtensions.copyToMap(employeeAnna, "class");
+		Employee employeeCopy = CopyObjectExtensions.copyMapToObject(actual, Employee.class);
+		assertEquals(employeeAnna, employeeCopy);
+
+		// prepare new scenario...
+		PremiumMember premiumMember = PremiumMember.buildPremiumMember().credits("10")
+			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24)).about("about")
+			.gender(Gender.MALE).married(true).name("Wanne").nickname("wan").build();
+		actual = CopyObjectExtensions.copyToMap(premiumMember, "class");
+		PremiumMember premiumMemberCopy = CopyObjectExtensions.copyMapToObject(actual,
+			PremiumMember.class);
+		assertEquals(premiumMember, premiumMemberCopy);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyToMap(Object, String...)}
+	 * 
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	@Test
+	public void testCopyToMap()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
+	{
+
+		Person original;
+		Map<String, Object> actual;
+		Map<String, Object> expected;
+
+		// new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions.copyToMap(original, "class");
+		expected = new HashMap<>();
+		expected.put("gender", Gender.MALE);
+		expected.put("about", "");
+		expected.put("name", "asterix");
+		expected.put("nickname", "");
+		expected.put("married", false);
+		assertEquals(expected, actual);
+	}
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copy(Object, Object, String...)}
@@ -97,20 +183,15 @@ public class CopyObjectExtensionsTest
 	 *             if the caller does not have access to the property accessor method
 	 */
 	@Test
-	public void testCopy()
-		throws IllegalAccessException
+	public void testCopy() throws IllegalAccessException
 	{
 		Person original;
 		Person destination;
 		Person actual;
 		Person expected;
 
-		original = Person.builder()
-			.about("about")
-			.gender(Gender.MALE)
-			.married(false)
-			.name("asterix")
-			.nickname("wan").build();
+		original = Person.builder().about("about").gender(Gender.MALE).married(false)
+			.name("asterix").nickname("wan").build();
 
 		destination = Person.builder().build();
 
@@ -128,22 +209,16 @@ public class CopyObjectExtensionsTest
 	 *             if the caller does not have access to the property accessor method
 	 */
 	@Test
-	public void testCopyMember()
-		throws IllegalAccessException
+	public void testCopyMember() throws IllegalAccessException
 	{
 		Member original;
 		Member destination;
 		Member actual;
 		Member expected;
 
-		original = Member.buildMember()
-			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
-			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24))
-			.about("about")
-			.gender(Gender.MALE)
-			.married(true)
-			.name("Wanne")
-			.nickname("wan").build();
+		original = Member.buildMember().dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24)).about("about")
+			.gender(Gender.MALE).married(true).name("Wanne").nickname("wan").build();
 
 		destination = Member.buildMember().build();
 
@@ -161,23 +236,17 @@ public class CopyObjectExtensionsTest
 	 *             if the caller does not have access to the property accessor method
 	 */
 	@Test
-	public void testCopyPremiumMember()
-		throws IllegalAccessException
+	public void testCopyPremiumMember() throws IllegalAccessException
 	{
 		PremiumMember original;
 		PremiumMember destination;
 		PremiumMember actual;
 		PremiumMember expected;
 
-		original = PremiumMember.buildPremiumMember()
-			.credits("10")
+		original = PremiumMember.buildPremiumMember().credits("10")
 			.dateofbirth(CreateDateExtensions.newDate(1979, 2, 24))
-			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24))
-			.about("about")
-			.gender(Gender.MALE)
-			.married(true)
-			.name("Wanne")
-			.nickname("wan").build();
+			.dateofbirth(CreateDateExtensions.newDate(2029, 2, 24)).about("about")
+			.gender(Gender.MALE).married(true).name("Wanne").nickname("wan").build();
 
 		destination = PremiumMember.buildPremiumMember().build();
 
