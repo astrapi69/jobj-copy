@@ -28,6 +28,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.astrapi69.io.Serializer;
 import org.junit.jupiter.api.Test;
 
 import io.github.astrapi69.date.CreateDateExtensions;
@@ -113,12 +114,12 @@ public class CopyObjectExtensionsTest
 	{
 
 		Person original;
-		Map<String, Object> actual;
-		Map<String, Object> expected;
+		HashMap<String, Object> actual;
+		HashMap<String, Object> expected;
 
 		// new scenario
 		original = Person.builder().gender(Gender.MALE).name("asterix").build();
-		actual = CopyObjectExtensions.copyToMap(original, "class");
+		actual = (HashMap<String, Object>)CopyObjectExtensions.copyToMap(original, "class");
 		expected = new HashMap<>();
 		expected.put("gender", Gender.MALE);
 		expected.put("about", "");
@@ -126,6 +127,9 @@ public class CopyObjectExtensionsTest
 		expected.put("nickname", "");
 		expected.put("married", false);
 		assertEquals(expected, actual);
+		// copy map to base64 encoded {@link String} object
+		String base64EncodedString = Serializer.toBase64EncodedString(actual);
+		System.out.println(base64EncodedString);
 	}
 
 	/**

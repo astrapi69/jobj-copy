@@ -215,6 +215,7 @@ dependencies {
     implementation("commons-beanutils:commons-beanutils:$commonsBeanutilsVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion")
+    testImplementation("io.github.astrapi69:silly-io:$sillyIoVersion")
     testImplementation("io.github.astrapi69:randomizer:$randomizerVersion")
     testImplementation("io.github.astrapi69:test-objects:$testObjectsVersion")
     testImplementation("io.github.astrapi69:vintage-time:$vintageTimeVersion")

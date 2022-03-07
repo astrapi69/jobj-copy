@@ -1,6 +1,13 @@
 ## Change log
 ----------------------
 
+Version 3.7-SNAPSHOT
+-------------
+
+ADDED:
+
+- new test dependency silly-io in new version 1.9
+
 Version 3.6
 -------------
 
