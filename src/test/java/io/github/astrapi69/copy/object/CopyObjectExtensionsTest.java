@@ -28,10 +28,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.github.astrapi69.io.Serializer;
 import org.junit.jupiter.api.Test;
 
 import io.github.astrapi69.date.CreateDateExtensions;
+import io.github.astrapi69.io.Serializer;
 import io.github.astrapi69.random.object.RandomObjectFactory;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Member;
@@ -100,7 +100,7 @@ public class CopyObjectExtensionsTest
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyToMap(Object, String...)}
-	 * 
+	 *
 	 * @throws IntrospectionException
 	 *             is thrown if an exception occurs during introspection
 	 * @throws IllegalAccessException
@@ -130,6 +130,43 @@ public class CopyObjectExtensionsTest
 		// copy map to base64 encoded {@link String} object
 		String base64EncodedString = Serializer.toBase64EncodedString(actual);
 		System.out.println(base64EncodedString);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyToMap(Object, String...)}
+	 *
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	@Test
+	public void testCopyToMapAndToBase64EncodedString()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
+	{
+		String actual;
+		String expected;
+
+		Person original;
+		HashMap<String, Object> personMap;
+		HashMap<String, Object> expectedPerson;
+
+		// new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		personMap = (HashMap<String, Object>)CopyObjectExtensions.copyToMap(original, "class");
+		expectedPerson = new HashMap<>();
+		expectedPerson.put("gender", Gender.MALE);
+		expectedPerson.put("about", "");
+		expectedPerson.put("name", "asterix");
+		expectedPerson.put("nickname", "");
+		expectedPerson.put("married", false);
+		assertEquals(expectedPerson, personMap);
+		// copy map to base64 encoded {@link String} object
+		actual = Serializer.toBase64EncodedString(personMap);
+		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		assertEquals(expected, actual);
 	}
 
 	/**
