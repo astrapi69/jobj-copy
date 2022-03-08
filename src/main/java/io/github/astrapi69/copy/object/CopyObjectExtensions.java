@@ -171,7 +171,7 @@ public final class CopyObjectExtensions
 		final String... ignoreFieldNames) throws IllegalAccessException, NoSuchFieldException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
-		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
+		T destination = ReflectionExtensions.newInstance(clazz);
 		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz,
 			ignoreFieldNames);
 		for (String fieldName : allDeclaredFieldNames)

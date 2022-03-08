@@ -174,6 +174,12 @@ Do not hesitate to contact the jobj-copy developers with your questions, concern
 |Special thanks to [sonatype repository](https://www.sonatype.com) for providing a free maven repository service for open source projects|
 |     <img width=1000/>     |
 
+|**codecov.io**|
+|     :---:      |
+|[![Coverage Status](https://codecov.io/gh/astrapi69/jobj-copy/branch/develop/graph/badge.svg)](https://codecov.io/gh/astrapi69/jobj-copy)|
+|Special thanks to [codecov.io](https://codecov.io) for providing a free code coverage for open source projects|
+|     <img width=1000/>     |
+
 |**javadoc.io**|
 |     :---:      |
 |[![Javadocs](http://www.javadoc.io/badge/io.github.astrapi69/jobj-copy.svg)](http://www.javadoc.io/doc/io.github.astrapi69/jobj-copy)|
