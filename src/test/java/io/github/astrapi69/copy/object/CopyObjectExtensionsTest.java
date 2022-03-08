@@ -40,10 +40,28 @@ import io.github.astrapi69.test.object.PremiumMember;
 import io.github.astrapi69.test.object.enumtype.Gender;
 
 /**
- * The unit test class for the class {@link CopyObjectExtensions}.
+ * The unit test class for the class {@link CopyObjectExtensions}
  */
 public class CopyObjectExtensionsTest
 {
+
+	/**
+	 * Test method for
+	 * {@link CopyObjectExtensions#copyBase64EncodedStringMapToObject(String, Class)}
+	 */
+	@Test
+	public void testCopyBase64EncodedStringMapToObject()
+	{
+		Person actual;
+		Person expected;
+		String objectAsBase64EncodedStringMap;
+		// new scenario
+		objectAsBase64EncodedStringMap = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions
+			.copyBase64EncodedStringMapToObject(objectAsBase64EncodedStringMap, Person.class);
+		assertEquals(expected, actual);
+	}
 
 	/**
 	 * Test method for
@@ -61,7 +79,6 @@ public class CopyObjectExtensionsTest
 		throws IntrospectionException, InvocationTargetException, IllegalAccessException
 	{
 		Person original;
-		Person destination;
 		String actual;
 		String expected;
 		// new scenario
@@ -69,8 +86,6 @@ public class CopyObjectExtensionsTest
 		actual = CopyObjectExtensions.copyObjectToMapBase64EncodedString(original, "class");
 		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
 		assertEquals(expected, actual);
-		destination = CopyObjectExtensions.copyBase64EncodedStringMapToObject(actual, Person.class);
-		assertEquals(original, destination);
 	}
 
 	/**
@@ -140,7 +155,6 @@ public class CopyObjectExtensionsTest
 	public void testCopyToMap()
 		throws IntrospectionException, InvocationTargetException, IllegalAccessException
 	{
-
 		Person original;
 		HashMap<String, Object> actual;
 		HashMap<String, Object> expected;
@@ -155,9 +169,6 @@ public class CopyObjectExtensionsTest
 		expected.put("nickname", "");
 		expected.put("married", false);
 		assertEquals(expected, actual);
-		// copy map to base64 encoded {@link String} object
-		String base64EncodedString = Serializer.toBase64EncodedString(actual);
-		System.out.println(base64EncodedString);
 	}
 
 	/**
@@ -240,9 +251,7 @@ public class CopyObjectExtensionsTest
 		expected = original;
 		actual = destination;
 		assertEquals(expected, actual);
-
 	}
-
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)}
@@ -401,7 +410,6 @@ public class CopyObjectExtensionsTest
 		actual = CopyObjectExtensions.copyPropertiesWithReflection(expected, "serialVersionUID");
 
 		assertEquals(expected, actual);
-
 	}
 
 	/**
@@ -412,7 +420,6 @@ public class CopyObjectExtensionsTest
 	public void testCopyPropertyWithReflection() throws NoSuchFieldException, SecurityException,
 		IllegalArgumentException, IllegalAccessException
 	{
-
 		Person expected;
 		Person actual;
 
@@ -427,7 +434,6 @@ public class CopyObjectExtensionsTest
 		expected = original.getPerson();
 		actual = destination.getPerson();
 		assertEquals(expected, actual);
-
 	}
 
 	/**
@@ -463,7 +469,6 @@ public class CopyObjectExtensionsTest
 		expected = "Foo bar";
 		actual = CopyObjectExtensions.copyObject(expected);
 		assertEquals(expected, actual);
-
 	}
 
 }
