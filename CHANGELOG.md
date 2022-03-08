@@ -6,7 +6,13 @@ Version 3.7-SNAPSHOT
 
 ADDED:
 
-- new test dependency silly-io in new version 1.9
+- new dependency silly-io in new version 1.9
+- new copy method that copies the given object to base64 encoded String object
+- new copy method that copies a  base64 encoded String object back to the origin object
+
+CHANGED:
+
+- update of dependency jackson-databind to new version 2.13.2
 
 Version 3.6
 -------------

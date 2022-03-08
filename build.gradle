@@ -59,6 +59,21 @@ sourceCompatibility = "$projectSourceCompatibility" as Object
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+        name "Sonatype Nexus Snapshots"
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+        mavenContent {
+            snapshotsOnly()
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    // uncomment the next line for build with compiler argument -Xlint:deprecation
+    // options.compilerArgs << "-Xlint:deprecation"
+    // uncomment the next line for build with compiler argument -Xlint:unchecked
+     options.compilerArgs << "-Xlint:unchecked"
 }
 
 task sourcesJar(type: Jar) {
@@ -215,7 +230,7 @@ dependencies {
     implementation("commons-beanutils:commons-beanutils:$commonsBeanutilsVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion")
-    testImplementation("io.github.astrapi69:silly-io:$sillyIoVersion")
+    implementation("io.github.astrapi69:silly-io:$sillyIoVersion")
     testImplementation("io.github.astrapi69:randomizer:$randomizerVersion")
     testImplementation("io.github.astrapi69:test-objects:$testObjectsVersion")
     testImplementation("io.github.astrapi69:vintage-time:$vintageTimeVersion")

@@ -46,6 +46,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.check.Check;
+import io.github.astrapi69.io.Serializer;
 import io.github.astrapi69.reflection.ReflectionExtensions;
 
 /**
@@ -120,7 +121,9 @@ public final class CopyObjectExtensions
 
 	/**
 	 * Copy the given original object to the given destination object. This also works on private
-	 * fields.
+	 * fields. <br>
+	 * Note: This method is moved to the class <code>ReflectionExtensions</code> so it will be
+	 * removed.
 	 *
 	 * @param <ORIGINAL>
 	 *            the generic type of the original object.
@@ -136,7 +139,6 @@ public final class CopyObjectExtensions
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 */
-	@SuppressWarnings("unchecked")
 	public static <ORIGINAL, DESTINATION> boolean copyField(final @NonNull Field field,
 		final @NonNull ORIGINAL original, final @NonNull DESTINATION target)
 		throws IllegalAccessException
@@ -288,6 +290,52 @@ public final class CopyObjectExtensions
 			}
 		}
 		return stringObjectMap;
+	}
+
+	/**
+	 * Copy the given source object first to a map and then to a base64 encoded {@link String}
+	 * object
+	 *
+	 * @param <T>
+	 *            the generic type of the source object
+	 * @param source
+	 *            the source object
+	 * @return the generated base64 encoded {@link String} object
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	public static <T> String copyObjectToMapBase64EncodedString(T source,
+		final String... ignoreFieldNames)
+		throws IntrospectionException, IllegalAccessException, InvocationTargetException
+	{
+		return Serializer
+			.toBase64EncodedString((HashMap<String, Object>)copyToMap(source, ignoreFieldNames));
+	}
+
+	/**
+	 * Copies the given base64 encoded {@link String} object that represents a map to a new object
+	 * from the given class.
+	 *
+	 * @param <T>
+	 *            the generic type of the returned object
+	 * @param base64EncodedStringMap
+	 *            the base64 encoded {@link String} object that represents a map
+	 * @param cls
+	 *            the class object
+	 * @return a new object from the given class that is filled from the given base64 encoded
+	 *         {@link String} object that represents a map
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T copyBase64EncodedStringMapToObject(@NonNull String base64EncodedStringMap,
+		@NonNull Class<T> cls)
+	{
+		Map<String, Object> stringObjectMapap = (HashMap<String, Object>)Serializer
+			.toObject(base64EncodedStringMap);
+		return copyMapToObject(stringObjectMapap, cls);
 	}
 
 	/**

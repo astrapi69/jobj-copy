@@ -46,6 +46,34 @@ public class CopyObjectExtensionsTest
 {
 
 	/**
+	 * Test method for
+	 * {@link CopyObjectExtensions#copyObjectToMapBase64EncodedString(Object, String...)}
+	 *
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	@Test
+	public void testCopyToMapBase64EncodedString()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
+	{
+		Person original;
+		Person destination;
+		String actual;
+		String expected;
+		// new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions.copyObjectToMapBase64EncodedString(original, "class");
+		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		assertEquals(expected, actual);
+		destination = CopyObjectExtensions.copyBase64EncodedStringMapToObject(actual, Person.class);
+		assertEquals(original, destination);
+	}
+
+	/**
 	 * Test method for {@link CopyObjectExtensions#copyMapToObject(Map, Class)}
 	 * 
 	 * @throws IntrospectionException
