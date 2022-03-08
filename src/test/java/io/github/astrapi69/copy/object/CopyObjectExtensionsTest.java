@@ -31,6 +31,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import io.github.astrapi69.date.CreateDateExtensions;
+import io.github.astrapi69.io.Serializer;
 import io.github.astrapi69.random.object.RandomObjectFactory;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Member;
@@ -39,10 +40,53 @@ import io.github.astrapi69.test.object.PremiumMember;
 import io.github.astrapi69.test.object.enumtype.Gender;
 
 /**
- * The unit test class for the class {@link CopyObjectExtensions}.
+ * The unit test class for the class {@link CopyObjectExtensions}
  */
 public class CopyObjectExtensionsTest
 {
+
+	/**
+	 * Test method for
+	 * {@link CopyObjectExtensions#copyBase64EncodedStringMapToObject(String, Class)}
+	 */
+	@Test
+	public void testCopyBase64EncodedStringMapToObject()
+	{
+		Person actual;
+		Person expected;
+		String objectAsBase64EncodedStringMap;
+		// new scenario
+		objectAsBase64EncodedStringMap = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions
+			.copyBase64EncodedStringMapToObject(objectAsBase64EncodedStringMap, Person.class);
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for
+	 * {@link CopyObjectExtensions#copyObjectToMapBase64EncodedString(Object, String...)}
+	 *
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	@Test
+	public void testCopyToMapBase64EncodedString()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
+	{
+		Person original;
+		String actual;
+		String expected;
+		// new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions.copyObjectToMapBase64EncodedString(original, "class");
+		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		assertEquals(expected, actual);
+	}
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyMapToObject(Map, Class)}
@@ -99,7 +143,7 @@ public class CopyObjectExtensionsTest
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyToMap(Object, String...)}
-	 * 
+	 *
 	 * @throws IntrospectionException
 	 *             is thrown if an exception occurs during introspection
 	 * @throws IllegalAccessException
@@ -111,20 +155,56 @@ public class CopyObjectExtensionsTest
 	public void testCopyToMap()
 		throws IntrospectionException, InvocationTargetException, IllegalAccessException
 	{
-
 		Person original;
-		Map<String, Object> actual;
-		Map<String, Object> expected;
+		HashMap<String, Object> actual;
+		HashMap<String, Object> expected;
 
 		// new scenario
 		original = Person.builder().gender(Gender.MALE).name("asterix").build();
-		actual = CopyObjectExtensions.copyToMap(original, "class");
+		actual = (HashMap<String, Object>)CopyObjectExtensions.copyToMap(original, "class");
 		expected = new HashMap<>();
 		expected.put("gender", Gender.MALE);
 		expected.put("about", "");
 		expected.put("name", "asterix");
 		expected.put("nickname", "");
 		expected.put("married", false);
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyToMap(Object, String...)}
+	 *
+	 * @throws IntrospectionException
+	 *             is thrown if an exception occurs during introspection
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             is thrown if the underlying method throws an exception
+	 */
+	@Test
+	public void testCopyToMapAndToBase64EncodedString()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
+	{
+		String actual;
+		String expected;
+
+		Person original;
+		HashMap<String, Object> personMap;
+		HashMap<String, Object> expectedPerson;
+
+		// new scenario
+		original = Person.builder().gender(Gender.MALE).name("asterix").build();
+		personMap = (HashMap<String, Object>)CopyObjectExtensions.copyToMap(original, "class");
+		expectedPerson = new HashMap<>();
+		expectedPerson.put("gender", Gender.MALE);
+		expectedPerson.put("about", "");
+		expectedPerson.put("name", "asterix");
+		expectedPerson.put("nickname", "");
+		expectedPerson.put("married", false);
+		assertEquals(expectedPerson, personMap);
+		// copy map to base64 encoded {@link String} object
+		actual = Serializer.toBase64EncodedString(personMap);
+		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
 		assertEquals(expected, actual);
 	}
 
@@ -171,9 +251,7 @@ public class CopyObjectExtensionsTest
 		expected = original;
 		actual = destination;
 		assertEquals(expected, actual);
-
 	}
-
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyObject(Object, Object, String...)}
@@ -332,7 +410,6 @@ public class CopyObjectExtensionsTest
 		actual = CopyObjectExtensions.copyPropertiesWithReflection(expected, "serialVersionUID");
 
 		assertEquals(expected, actual);
-
 	}
 
 	/**
@@ -343,7 +420,6 @@ public class CopyObjectExtensionsTest
 	public void testCopyPropertyWithReflection() throws NoSuchFieldException, SecurityException,
 		IllegalArgumentException, IllegalAccessException
 	{
-
 		Person expected;
 		Person actual;
 
@@ -358,7 +434,6 @@ public class CopyObjectExtensionsTest
 		expected = original.getPerson();
 		actual = destination.getPerson();
 		assertEquals(expected, actual);
-
 	}
 
 	/**
@@ -394,7 +469,6 @@ public class CopyObjectExtensionsTest
 		expected = "Foo bar";
 		actual = CopyObjectExtensions.copyObject(expected);
 		assertEquals(expected, actual);
-
 	}
 
 }

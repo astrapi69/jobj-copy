@@ -31,13 +31,13 @@ your project `build.gradle` if you want to import the core functionality of jobj
 define version in file gradle.properties
 
 ```
-jobjCopyVersion=3.5
+jobjCopyVersion=3.7
 ```
 
 or in build.gradle ext area
 
 ```
-    jobjCopyVersion = "3.5"
+    jobjCopyVersion = "3.7"
 ```
 
 then add the dependency to the dependencies area
@@ -58,7 +58,7 @@ Than you can add the dependency to your dependencies:
     <properties>
             ...
         <!-- JOBJ-COPY version -->
-        <jobj-copy.version>3.5</jobj-copy.version>
+        <jobj-copy.version>3.7</jobj-copy.version>
             ...
     </properties>
             ...
@@ -172,6 +172,12 @@ Do not hesitate to contact the jobj-copy developers with your questions, concern
 |     :---:      |
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.astrapi69/jobj-copy.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~io.github.astrapi69~jobj-copy~~~)|
 |Special thanks to [sonatype repository](https://www.sonatype.com) for providing a free maven repository service for open source projects|
+|     <img width=1000/>     |
+
+|**codecov.io**|
+|     :---:      |
+|[![Coverage Status](https://codecov.io/gh/astrapi69/jobj-copy/branch/develop/graph/badge.svg)](https://codecov.io/gh/astrapi69/jobj-copy)|
+|Special thanks to [codecov.io](https://codecov.io) for providing a free code coverage for open source projects|
 |     <img width=1000/>     |
 
 |**javadoc.io**|
