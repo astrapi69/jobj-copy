@@ -4,7 +4,13 @@
 Version 3.8-SNAPSHOT
 -------------
 
+CHANGED:
 
+- update of gradle to new version 8.1.1
+- update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 8.0.1
+- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new version 0.46.0
+- update of dependency jobj-core in new version 7.1
+- update of test dependency test-object in new minor version 7.2
 
 Version 3.7
 -------------
