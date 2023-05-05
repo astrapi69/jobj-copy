@@ -38,16 +38,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
-
 import org.apache.commons.beanutils.PropertyUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.check.Check;
 import io.github.astrapi69.io.Serializer;
-import io.github.astrapi69.reflection.ReflectionExtensions;
+import io.github.astrapi69.lang.reflect.ReflectionExtensions;
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 /**
  * The class {@link CopyObjectExtensions} provide methods for copy an original object to a given

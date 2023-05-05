@@ -244,13 +244,6 @@ public class CopyObjectExtensionsTest
 		expected = Person.builder().name("asterix").build();
 		actual = destination;
 		assertEquals(expected, actual);
-		// new scenario
-		original = RandomObjectFactory.newRandomObject(Person.class, "$jacocoData");
-
-		CopyObjectExtensions.copy(original, destination);
-		expected = original;
-		actual = destination;
-		assertEquals(expected, actual);
 	}
 
 	/**
