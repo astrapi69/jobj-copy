@@ -36,9 +36,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.beanutils.PropertyUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -238,19 +237,20 @@ public final class CopyObjectExtensions
 	{
 		Check.get().notNull(source, "source").notNull(target, "target");
 
+		final Class<?> sourceClass = source.getClass();
 		final Class<?> targetClass = target.getClass();
 
-		final PropertyDescriptor[] targetPropertyDescriptors = PropertyUtils
-			.getPropertyDescriptors(targetClass);
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(sourceClass);
 
-		for (final PropertyDescriptor targetPropertyDescriptor : targetPropertyDescriptors)
+
+		for (String fieldName : fieldNames)
 		{
-			String name = targetPropertyDescriptor.getName();
-			if (!Arrays.asList(ignoreFieldNames).contains(name))
+			if (!Arrays.asList(ignoreFieldNames).contains(fieldName))
 			{
-				copyProperty(source, target, targetPropertyDescriptor);
+				ReflectionExtensions.copyFieldValue(source, target, fieldName);
 			}
 		}
+
 		return target;
 	}
 
@@ -401,34 +401,6 @@ public final class CopyObjectExtensions
 			objectOutputStream.flush();
 			return byteArrayOutputStream.toByteArray();
 		}
-	}
-
-
-	/**
-	 * Copy the given source property to the given target object.
-	 *
-	 * @param <S>
-	 *            the generic type of the source object
-	 * @param <T>
-	 *            the generic type of the target object
-	 * @param source
-	 *            the source object
-	 * @param target
-	 *            the target object
-	 * @param propertyDescriptor
-	 *            the property descriptor
-	 * @throws IllegalAccessException
-	 *             if the caller does not have access to the property accessor method
-	 * @throws NoSuchFieldException
-	 *             is thrown if no such field exists.
-	 * @throws SecurityException
-	 *             is thrown if a security manager says no
-	 */
-	public static <S, T> void copyProperty(final S source, final T target,
-		final PropertyDescriptor propertyDescriptor)
-		throws IllegalAccessException, NoSuchFieldException, SecurityException
-	{
-		ReflectionExtensions.copyFieldValue(source, target, propertyDescriptor.getName());
 	}
 
 }

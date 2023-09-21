@@ -4,7 +4,6 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    implementation("commons-beanutils:commons-beanutils:$commonsBeanutilsVersion")
     implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion")
     implementation("io.github.astrapi69:silly-io:$sillyIoVersion")

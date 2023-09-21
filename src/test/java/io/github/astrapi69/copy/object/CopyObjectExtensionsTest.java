@@ -233,14 +233,14 @@ public class CopyObjectExtensionsTest
 
 		destination = Person.builder().build();
 
-		CopyObjectExtensions.copy(original, destination);
+		CopyObjectExtensions.copy(original, destination, "serialVersionUID");
 		expected = original;
 		actual = destination;
 		assertEquals(expected, actual);
 		// new scenario
 		destination = Person.builder().build();
 
-		CopyObjectExtensions.copy(original, destination, "gender");
+		CopyObjectExtensions.copy(original, destination, "serialVersionUID", "gender");
 		expected = Person.builder().name("asterix").build();
 		actual = destination;
 		assertEquals(expected, actual);
