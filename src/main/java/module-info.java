@@ -25,4 +25,7 @@ module jobj.copy.main
 	requires jobj.core.main;
 	requires silly.io.main;
 	requires lombok;
+
+	exports io.github.astrapi69.copy.object;
+
 }

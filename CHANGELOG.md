@@ -1,17 +1,19 @@
 ## Change log
 ----------------------
 
-Version 3.8-SNAPSHOT
+Version 4
 -------------
 
 CHANGED:
 
+- update of jdk to version 17
 - update of gradle to new version 8.4-rc-1
 - update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 8.3
 - update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new version 0.48.0
 - update of dependency jobj-core in new version 7.1
 - update of dependency jackson-databind to new version 2.15.2
 - update of test dependency test-object in new minor version 7.2
+- remove of dependency commons-beanutils
 
 Version 3.7
 -------------

@@ -31,13 +31,13 @@ your project `build.gradle` if you want to import the core functionality of jobj
 define version in file gradle.properties
 
 ```
-jobjCopyVersion=3.7
+jobjCopyVersion=4
 ```
 
 or in build.gradle ext area
 
 ```
-    jobjCopyVersion = "3.7"
+    jobjCopyVersion = "4"
 ```
 
 then add the dependency to the dependencies area
@@ -53,12 +53,12 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 
 Add the following maven dependency to your project `pom.xml` if you want to import the core functionality of jobj-copy:
 
-Than you can add the dependency to your dependencies:
+Then you can add the dependency to your dependencies:
 
     <properties>
             ...
         <!-- JOBJ-COPY version -->
-        <jobj-copy.version>3.7</jobj-copy.version>
+        <jobj-copy.version>4</jobj-copy.version>
             ...
     </properties>
             ...
