@@ -20,11 +20,12 @@
  */
 module jobj.copy.main
 {
-	requires java.desktop;
-	requires com.fasterxml.jackson.databind;
-	requires jobj.core.main;
-	requires silly.io.main;
 	requires lombok;
+	requires java.desktop;
+	requires jobj.core.main;
+	requires jobj.reflect.main;
+	requires silly.io.main;
+	requires com.fasterxml.jackson.databind;
 
 	exports io.github.astrapi69.copy.object;
 

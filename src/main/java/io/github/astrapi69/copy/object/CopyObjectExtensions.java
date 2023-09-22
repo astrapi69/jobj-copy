@@ -43,7 +43,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.check.Check;
 import io.github.astrapi69.io.Serializer;
-import io.github.astrapi69.lang.reflect.ReflectionExtensions;
+import io.github.astrapi69.reflection.ReflectionExtensions;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 

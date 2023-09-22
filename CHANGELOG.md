@@ -1,6 +1,17 @@
 ## Change log
 ----------------------
 
+Version 4.1
+-------------
+
+ADDED:
+
+- new dependency 'io.github.astrapi69:jobj-reflect' in version 2
+
+CHANGED:
+
+- update of dependency jobj-core in new version 8
+
 Version 4
 -------------
 
