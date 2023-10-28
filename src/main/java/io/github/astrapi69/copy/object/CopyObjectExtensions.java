@@ -38,11 +38,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.check.Check;
 import io.github.astrapi69.io.Serializer;
+import io.github.astrapi69.reflection.InstanceFactory;
 import io.github.astrapi69.reflection.ReflectionExtensions;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
@@ -78,7 +80,7 @@ public final class CopyObjectExtensions
 		{
 			return (T)String.valueOf(original);
 		}
-		T destination = ReflectionExtensions.newInstance(clazz);
+		T destination = InstanceFactoryDecorator.newInstance(clazz);
 		return copyObject(original, destination, ignoreFieldNames);
 	}
 
@@ -171,7 +173,7 @@ public final class CopyObjectExtensions
 		final String... ignoreFieldNames) throws IllegalAccessException, NoSuchFieldException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
-		T destination = ReflectionExtensions.newInstance(clazz);
+		T destination = InstanceFactoryDecorator.newInstance(clazz);
 		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz,
 			ignoreFieldNames);
 		for (String fieldName : allDeclaredFieldNames)
@@ -400,6 +402,35 @@ public final class CopyObjectExtensions
 			objectOutputStream.writeObject(object);
 			objectOutputStream.flush();
 			return byteArrayOutputStream.toByteArray();
+		}
+	}
+
+	private static class InstanceFactoryDecorator
+	{
+		public static <T> T newInstance(final @NonNull Class<T> clazz, Object... initArgs)
+		{
+			T instance;
+			try
+			{
+				instance = InstanceFactory.newInstance(clazz, initArgs);
+			}
+			catch (InvocationTargetException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch (InstantiationException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch (IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch (NoSuchMethodException e)
+			{
+				throw new RuntimeException(e);
+			}
+			return instance;
 		}
 	}
 
