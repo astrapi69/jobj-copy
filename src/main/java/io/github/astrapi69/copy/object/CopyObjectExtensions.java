@@ -38,16 +38,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.check.Check;
 import io.github.astrapi69.io.Serializer;
 import io.github.astrapi69.reflection.InstanceFactory;
 import io.github.astrapi69.reflection.ReflectionExtensions;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 
 /**
  * The class {@link CopyObjectExtensions} provide methods for copy an original object to a given
@@ -353,6 +354,7 @@ public final class CopyObjectExtensions
 	public static <T> T copyMapToObject(@NonNull Map<String, Object> map, @NonNull Class<T> cls)
 	{
 		final ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		return mapper.convertValue(map, cls);
 	}
 

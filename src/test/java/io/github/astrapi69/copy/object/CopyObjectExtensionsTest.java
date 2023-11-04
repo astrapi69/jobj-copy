@@ -28,12 +28,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.github.astrapi69.date.CreateDateExtensions;
 import io.github.astrapi69.io.Serializer;
-import io.github.astrapi69.random.object.RandomObjectFactory;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Member;
 import io.github.astrapi69.test.object.Person;
@@ -51,9 +49,7 @@ public class CopyObjectExtensionsTest
 	 * {@link CopyObjectExtensions#copyBase64EncodedStringMapToObject(String, Class)}
 	 */
 	@Test
-	@Disabled("retest and fix")
-	public void testCopyBase64EncodedStringMapToObject()
-	{
+	public void testCopyBase64EncodedStringMapToObject() throws IntrospectionException, InvocationTargetException, IllegalAccessException {
 		Person actual;
 		Person expected;
 		String objectAsBase64EncodedStringMap;
@@ -77,7 +73,6 @@ public class CopyObjectExtensionsTest
 	 *             is thrown if the underlying method throws an exception
 	 */
 	@Test
-	@Disabled("retest and fix")
 	public void testCopyToMapBase64EncodedString()
 		throws IntrospectionException, InvocationTargetException, IllegalAccessException
 	{
@@ -87,7 +82,7 @@ public class CopyObjectExtensionsTest
 		// new scenario
 		original = Person.builder().gender(Gender.MALE).name("asterix").build();
 		actual = CopyObjectExtensions.copyObjectToMapBase64EncodedString(original, "class");
-		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAMmlvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bWVyYXRpb24uR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
 		assertEquals(expected, actual);
 	}
 
@@ -185,7 +180,6 @@ public class CopyObjectExtensionsTest
 	 *             is thrown if the underlying method throws an exception
 	 */
 	@Test
-	@Disabled("retest and fix")
 	public void testCopyToMapAndToBase64EncodedString()
 		throws IntrospectionException, InvocationTargetException, IllegalAccessException
 	{
@@ -208,7 +202,7 @@ public class CopyObjectExtensionsTest
 		assertEquals(expectedPerson, personMap);
 		// copy map to base64 encoded {@link String} object
 		actual = Serializer.toBase64EncodedString(personMap);
-		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAL2lvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bXR5cGUuR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
+		expected = "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcAUH2sHDFmDRAwACRgAKbG9hZEZhY3RvckkACXRocmVzaG9sZHhwP0AAAAAAAAx3CAAAABAAAAAFdAAGZ2VuZGVyfnIAMmlvLmdpdGh1Yi5hc3RyYXBpNjkudGVzdC5vYmplY3QuZW51bWVyYXRpb24uR2VuZGVyAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAETUFMRXQABWFib3V0dAAAdAAEbmFtZXQAB2FzdGVyaXh0AAhuaWNrbmFtZXEAfgAIdAAHbWFycmllZHNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAB4";
 		assertEquals(expected, actual);
 	}
 
