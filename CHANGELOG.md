@@ -11,8 +11,9 @@ CHANGED:
 - update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new version 0.49.0
 - update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 6.22.0
 - update of dependency jobj-core in new version 8.1
+- update of dependency jobj-reflect in new version 2.4
 - update of dependency jackson-databind to new version 2.16.0-rc1
-- update of test dependency test-object in new minor version 8.1
+- update of test dependency test-object in new minor version 8.2
 
 Version 4.1
 -------------
