@@ -80,7 +80,7 @@ public final class CopyObjectExtensions
 		{
 			return (T)String.valueOf(original);
 		}
-		T destination = InstanceFactoryDecorator.newInstance(clazz);
+		T destination = InstanceFactory.newInstance(clazz);
 		return copyObject(original, destination, ignoreFieldNames);
 	}
 
@@ -173,7 +173,7 @@ public final class CopyObjectExtensions
 		final String... ignoreFieldNames) throws IllegalAccessException, NoSuchFieldException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
-		T destination = InstanceFactoryDecorator.newInstance(clazz);
+		T destination = InstanceFactory.newInstance(clazz);
 		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz,
 			ignoreFieldNames);
 		for (String fieldName : allDeclaredFieldNames)
@@ -402,35 +402,6 @@ public final class CopyObjectExtensions
 			objectOutputStream.writeObject(object);
 			objectOutputStream.flush();
 			return byteArrayOutputStream.toByteArray();
-		}
-	}
-
-	private static class InstanceFactoryDecorator
-	{
-		public static <T> T newInstance(final @NonNull Class<T> clazz, Object... initArgs)
-		{
-			T instance;
-			try
-			{
-				instance = InstanceFactory.newInstance(clazz, initArgs);
-			}
-			catch (InvocationTargetException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch (InstantiationException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch (IllegalAccessException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch (NoSuchMethodException e)
-			{
-				throw new RuntimeException(e);
-			}
-			return instance;
 		}
 	}
 
