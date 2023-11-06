@@ -49,7 +49,9 @@ public class CopyObjectExtensionsTest
 	 * {@link CopyObjectExtensions#copyBase64EncodedStringMapToObject(String, Class)}
 	 */
 	@Test
-	public void testCopyBase64EncodedStringMapToObject() throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+	public void testCopyBase64EncodedStringMapToObject()
+		throws IntrospectionException, InvocationTargetException, IllegalAccessException
+	{
 		Person actual;
 		Person expected;
 		String objectAsBase64EncodedStringMap;
