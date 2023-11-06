@@ -1,6 +1,28 @@
 ## Change log
 ----------------------
 
+Version 4.2
+-------------
+
+ADDED:
+
+- new required version info for dependency 'org.junit.platform:junit-platform-launcher' in current version 1.10.0
+
+CHANGED:
+
+- update of gradle to new version 8.4
+- update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 8.4
+- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new version 0.49.0
+- update of gradle-plugin dependency 'org.ajoberstar.grgit:grgit-gradle' to new version 5.2.1
+- update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 6.22.0
+- update of dependency jobj-core to new version 8.1
+- update of dependency jobj-reflect to new version 2.4
+- update of dependency silly-io to new version 3
+- update of dependency jackson-databind to new version 2.16.0-rc1
+- update of test dependency randomizer to new minor version 10.1
+- update of test dependency test-object to new minor version 8.2
+- update of test dependency junit-juniper-api to new version 5.10.1
+
 Version 4.1
 -------------
 
