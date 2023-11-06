@@ -31,13 +31,13 @@ your project `build.gradle` if you want to import the core functionality of jobj
 define version in file gradle.properties
 
 ```
-jobjCopyVersion=4.1
+jobjCopyVersion=4.2
 ```
 
 or in build.gradle ext area
 
 ```
-    jobjCopyVersion = "4.1"
+    jobjCopyVersion = "4.2"
 ```
 
 then add the dependency to the dependencies area
@@ -58,7 +58,7 @@ Then you can add the dependency to your dependencies:
     <properties>
             ...
         <!-- JOBJ-COPY version -->
-        <jobj-copy.version>4.1</jobj-copy.version>
+        <jobj-copy.version>4.2</jobj-copy.version>
             ...
     </properties>
             ...
