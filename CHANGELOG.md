@@ -4,6 +4,9 @@
 Version 4.3-SNAPSHOT
 -------------
 
+ADDED:
+
+- new libs.versions.toml file for new automatic catalog versions update
 
 
 Version 4.2

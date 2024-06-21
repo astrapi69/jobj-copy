@@ -1,0 +1,43 @@
+[versions]
+gradle-plugin-grgit-version = "5.2.2"
+gradle-plugin-license-version = "0.16.1"
+gradle-plugin-lombok-version = "8.6"
+gradle-plugin-spotless-version = "7.0.0.BETA1"
+gradle-plugin-version-catalog-update-version = "0.8.4"
+gradle-plugin-versions-version = "0.51.0"
+jackson-databind-version = "2.16.0-rc1"
+jobj-core-version = "8.1"
+jobj-reflect-version = "2.4"
+junit-jupiter-version = "5.10.1"
+junit-platform-launcher-version = "1.10.1"
+lombok-version = "1.18.30"
+randomizer-version = "10.1"
+silly-io-version = "3"
+test-object-version = "8.2"
+vintage-time-version = "6"
+
+[libraries]
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind-version" }
+jobj-core = { module = "io.github.astrapi69:jobj-core", version.ref = "jobj-core-version" }
+jobj-reflect = { module = "io.github.astrapi69:jobj-reflect", version.ref = "jobj-reflect-version" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter-version" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform-launcher-version" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version" }
+randomizer = { module = "io.github.astrapi69:randomizer", version.ref = "randomizer-version" }
+silly-io = { module = "io.github.astrapi69:silly-io", version.ref = "silly-io-version" }
+test-object = { module = "io.github.astrapi69:test-object", version.ref = "test-object-version" }
+vintage-time = { module = "io.github.astrapi69:vintage-time", version.ref = "vintage-time-version" }
+
+[bundles]
+unit-testing = [
+    "junit-jupiter",
+    "test-object",
+]
+
+[plugins]
+gradle-versions-plugin = { id = "com.github.ben-manes.versions", version.ref = "gradle-plugin-versions-version" }
+grgit-gradle = { id = "org.ajoberstar.grgit", version.ref = "gradle-plugin-grgit-version" }
+license-gradle-plugin = { id = "com.github.hierynomus.license", version.ref = "gradle-plugin-license-version" }
+lombok-plugin = { id = "io.freefair.lombok", version.ref = "gradle-plugin-lombok-version" }
+spotless-plugin-gradle = { id = "com.diffplug.spotless", version.ref = "gradle-plugin-spotless-version" }
+version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "gradle-plugin-version-catalog-update-version" }
