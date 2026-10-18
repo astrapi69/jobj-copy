@@ -10,6 +10,8 @@ ADDED:
 
 CHANGED:
 
+- update of dependency jackson-databind to new version 2.22.4 (#1): the released 4.2 still declared the
+  release candidate 2.16.0-rc1, which reached every consumer of randomizer and mystic-crypt
 - update of gradle to new version 8.8
 - update of dependency lombok to new version 1.18.32
 - update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 8.6
