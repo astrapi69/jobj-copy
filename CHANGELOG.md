@@ -10,6 +10,12 @@ ADDED:
 
 CHANGED:
 
+- releases go to Maven Central through the Central Portal, as in the rest of the family: the
+  `com.gradleup.nmcp` plugin uploads, the maintainer releases each deployment in the Portal, and a
+  `RELEASE-*` tag runs the new `publish.yml`, which signs with the signing subkey that the secret
+  `GPG_KEY_ID` names. The OSSRH staging endpoint this project published to is shut down; its
+  settings are gone, among them the switch that held the checksums to md5 and sha1, and snapshots
+  resolve from the Central Portal's snapshot repository (#3)
 - update of dependency jackson-databind to new version 2.22.4 (#1): the released 4.2 still declared the
   release candidate 2.16.0-rc1, which reached every consumer of randomizer and mystic-crypt
 - update of gradle to new version 8.8
