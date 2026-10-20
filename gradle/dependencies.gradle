@@ -1,16 +1,18 @@
-
 dependencies {
-    compileOnly("org.projectlombok:lombok:$lombokVersion")
-    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    implementation("io.github.astrapi69:jobj-core:$jobjCoreVersion")
-    implementation("io.github.astrapi69:jobj-reflect:$jobjReflectVersion")
-    implementation("io.github.astrapi69:silly-io:$sillyIoVersion")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion")
-    testCompileOnly("org.projectlombok:lombok:$lombokVersion")
-    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    testImplementation("io.github.astrapi69:randomizer:$randomizerVersion")
-    testImplementation("io.github.astrapi69:test-object:$testObjectVersion")
-    testImplementation("io.github.astrapi69:vintage-time:$vintageTimeVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion")
+
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+
+    implementation libs.jobj.core
+    implementation libs.jobj.reflect
+    implementation libs.silly.io
+    implementation libs.jackson.databind
+
+    testImplementation libs.randomizer
+    testImplementation libs.vintage.time
+    // Note: use of bundles...
+    testImplementation libs.bundles.unit.testing
+    testRuntimeOnly libs.junit.platform.launcher
 }

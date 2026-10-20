@@ -1,6 +1,40 @@
 ## Change log
 ----------------------
 
+Version 4.3
+-------------
+
+ADDED:
+
+- new libs.versions.toml file for new automatic catalog versions update
+
+CHANGED:
+
+- releases go to Maven Central through the Central Portal, as in the rest of the family: the
+  `com.gradleup.nmcp` plugin uploads, the maintainer releases each deployment in the Portal, and a
+  `RELEASE-*` tag runs the new `publish.yml`, which signs with the signing subkey that the secret
+  `GPG_KEY_ID` names. The OSSRH staging endpoint this project published to is shut down; its
+  settings are gone, among them the switch that held the checksums to md5 and sha1, and snapshots
+  resolve from the Central Portal's snapshot repository (#3)
+- update of dependency jackson-databind to new version 2.22.4 (#1): the released 4.2 still declared the
+  release candidate 2.16.0-rc1, which reached every consumer of randomizer and mystic-crypt
+- update of gradle to new version 8.8
+- update of dependency lombok to new version 1.18.32
+- update of gradle plugin dependency io.freefair.gradle:lombok-plugin to new version 8.6
+- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new version 0.51.0
+- update of gradle-plugin dependency 'org.ajoberstar.grgit:grgit-gradle' to new version 5.2.2
+- update of gradle plugin dependency 'com.diffplug.spotless:spotless-plugin-gradle' to new version 7.0.0.BETA1
+- update of dependency jobj-core to new version 8.2
+- update of dependency jackson-databind to new version 2.17.1
+- update of test dependency randomizer to new minor version 10.2
+- update of test dependency junit-juniper to new version 5.11.0-M2
+- update of test dependency junit-platform-launcher to new version 1.11.0-M2
+
+FIXED:
+
+- the POM's description said `Template project for create java library projects`; it now says what the
+  library does (#5)
+
 Version 4.2
 -------------
 
