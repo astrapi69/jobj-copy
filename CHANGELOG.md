@@ -30,6 +30,11 @@ CHANGED:
 - update of test dependency junit-juniper to new version 5.11.0-M2
 - update of test dependency junit-platform-launcher to new version 1.11.0-M2
 
+FIXED:
+
+- the POM's description said `Template project for create java library projects`; it now says what the
+  library does (#5)
+
 Version 4.2
 -------------
 
