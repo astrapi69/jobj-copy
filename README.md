@@ -5,11 +5,10 @@
 [![Java CI with Gradle](https://github.com/astrapi69/jobj-copy/actions/workflows/gradle.yml/badge.svg)](https://github.com/astrapi69/jobj-copy/actions/workflows/gradle.yml)
 [![Coverage Status](https://codecov.io/gh/astrapi69/jobj-copy/branch/develop/graph/badge.svg)](https://codecov.io/gh/astrapi69/jobj-copy)
 [![Open Issues](https://img.shields.io/github/issues/astrapi69/jobj-copy.svg?style=flat)](https://github.com/astrapi69/jobj-copy/issues)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.astrapi69/jobj-copy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.astrapi69/jobj-copy)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.astrapi69/jobj-copy)](https://central.sonatype.com/artifact/io.github.astrapi69/jobj-copy)
 [![Javadocs](http://www.javadoc.io/badge/io.github.astrapi69/jobj-copy.svg)](http://www.javadoc.io/doc/io.github.astrapi69/jobj-copy)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Hits Of Code](https://hitsofcode.com/github/astrapi69/jobj-copy?branch=develop)](https://hitsofcode.com/github/astrapi69/jobj-copy/view?branch=develop)
-[![Lines Of Code](https://tokei.rs/b1/github/astrapi69/jobj-copy)](https://github.com/astrapi69/jobj-copy)
 
 </div>
 
@@ -48,8 +47,7 @@ then add the dependency to the dependencies area
 
 ## Maven dependency
 
-Maven dependency is now on sonatype.
-Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;gav~io.github.astrapi69~jobj-copy~~~) for latest snapshots and releases.
+The library is on Maven Central. Check out [Maven Central](https://central.sonatype.com/artifact/io.github.astrapi69/jobj-copy) for the latest release.
 
 Add the following maven dependency to your project `pom.xml` if you want to import the core functionality of jobj-copy:
 
@@ -116,9 +114,9 @@ Do not hesitate to contact the jobj-copy developers with your questions, concern
 
 ## Credits
 
-|**Nexus Sonatype repositories**|
+|**Maven Central**|
 |     :---:      |
-|[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.astrapi69/jobj-copy.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~io.github.astrapi69~jobj-copy~~~)|
+|[![Maven Central](https://img.shields.io/maven-central/v/io.github.astrapi69/jobj-copy?style=for-the-badge)](https://central.sonatype.com/artifact/io.github.astrapi69/jobj-copy)|
 |Special thanks to [sonatype repository](https://www.sonatype.com) for providing a free maven repository service for open source projects|
 |     <img width=1000/>     |
 
